@@ -1,0 +1,209 @@
+---
+import advantageText from '../assets/text.png'
+const navItems = [
+  { name: 'ABOUT THE BOOK', href: '#about' },
+  { name: 'AUTHOR', href: '#author' },
+  { name: 'REVIEWS', href: '#reviews' },
+  { name: 'JOIN THE LAUNCH TEAM', href: '#launchteam'}
+];
+---
+
+<nav class="navbar">
+  <div class="container">
+    <a href="/" class="logo">
+      <span class="line-one"><em>ART</em> of TRUE</span>
+      <span class="line-two">ADVANTAGE</span>
+    </a>
+
+    <div class="nav-wrapper">
+      <ul class="nav-links">
+        <li><a href="#about">ABOUT</a></li>
+        <li><a href="#author">AUTHOR</a></li>
+        <li><a href="#reviews">REVIEWS</a></li>
+        <li><a href="#contact">CONTACT</a></li>
+        <li class="launch-team">
+          <a href="#launchteam" class="launch-team-link">
+            <span class="top-line">JOIN THE</span>
+            <span class="bottom-line">LAUNCH TEAM</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    </div>
+
+    <!-- <a href="#buy" class="cta-button">Order Now</a> -->
+  </div>
+</nav>
+
+<style>
+  .navbar {
+    padding: 1.5rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px); 
+    /* background: #d78941;  */
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 3rem;
+  }
+
+  .logo {
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-decoration: none;
+    line-height: 1.1;
+    display: flex;
+    flex-direction: column; /* Stacks the two lines of the logo */
+    align-items: flex-start;
+    letter-spacing: 0.05em; /* Helps with "Advantage" being a long word */
+    text-transform: uppercase;
+    color: #6b4423;
+  }
+
+  .logo em {
+    font-style: italic;
+    margin-right: 0.2rem;
+  }
+
+    .line-one {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.14em; /* Adjusted to stretch "ART of TRUE" */
+    margin-bottom: 2px;
+    margin-left: .18rem
+  }
+
+  .line-two {
+    font-size: 1.5rem; /* Larger font to make "ADVANTAGE" the anchor */
+    font-weight: 900;
+    letter-spacing: -0.02em; /* Tightens the long word */
+    color: #6b4423; /* Dark brown for a grounded look */
+  }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    margin: 0;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: #6b4423;
+    font-weight: 550;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover {
+    color: #d78941;
+  }
+
+  .cta-button {
+    background-color: #d78941;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.2s, background-color 0.2s;
+  }
+
+  .cta-button:hover {
+    background-color: #bf7635; /* Slightly darker shade */
+    transform: translateY(-1px);
+  }
+
+
+
+  .nav-links li:not(.launch-team) {
+    width: 100%;
+    border-top: 1px solid #d78941;
+    border-bottom: 1px solid #d78941;
+    padding: .95rem 1rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    align-items: center; /* Vertically centers all items */
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-links li {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: #6b4423;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+    line-height: 1;
+  }
+
+  .nav-links a:hover {
+    color: #d78941;
+  }
+
+  .launch-team {
+    width: 100%;
+    border-top: 1px solid #d78941;
+    border-bottom: 1px solid #d78941;
+    padding: .5rem 1rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* The Split "Launch Team" Item */
+  .launch-team-link {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+    text-align: center;
+    min-width: 180px; /* Makes it "longer across" to draw the eye */
+    padding: 0 1rem;
+  }
+
+  .top-line {
+    font-size: 0.7rem;
+    opacity: 0.8;
+  }
+
+  .bottom-line {
+    font-size: 1.1rem; /* Emphasis */
+    font-weight: 800;
+    color: #d78941; /* Highlights the call to action */
+    white-space: nowrap;
+  }
+
+  @media (max-width: 768px) {
+    .nav-links {
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .launch-team-link {
+      min-width: auto;
+    }
+
+  /* Simple Mobile Responsive */
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none; /* Add a hamburger menu later if needed */
+    }
+  }
+</style>
