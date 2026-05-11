@@ -5,11 +5,37 @@ import Countdown from '../components/Countdown.astro'
 
 <div id="container">
 	<main>
-		<section id="hero">
+		<section id="main">
 			<Countdown deadline="2026-06-08" />
 			<img src={advantageLogo.src} class="outline" width="500" height="500" alt="the ART of TRUE ADVANTAGE" />
-
-		</section>
+    </section>
+    <section id="launch-team">
+      <h2>Join Launch Team</h2>
+      <h3>What is the Launch Team?</h3>
+      <p>Support the Art of True Advantage launch by joining the launch team</p>
+      <p>Stay informed about the book release and special events</p>
+      <p>Receive exclusive invitation to the Launch Team Celebratory Book Signing</p>
+      <div class="contact-form">
+        <form action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="e0113dd9-ab2c-4165-bae7-978a1dc2cffb">
+          <input style="width:500px" type="text" name="Name" placeholder="Full Name" required>
+          <input style="width:500px" type="text" name="email" placeholder="email" required>
+          <button type="submit" class="btn">JOIN THE LAUNCH TEAM</button>
+        </form>
+      </div>
+    </section>
+    <section id="about">
+      <h2>About The Art of True Advantage</h2>
+    </section>
+    <section id="reviews">
+      <h2>Advanced Praise</h2>
+    </section>
+    <section id="author">
+      <h2>About the Author</h2>
+    </section>
+    <section class="copyright">
+      Copyright © ADVANTAGEOUS ORIENTATIONS PRESS, 2026. All rights reserved.
+    </section>
 	</main>
 </div>
 
@@ -20,15 +46,21 @@ import Countdown from '../components/Countdown.astro'
 	#container {
 		font-family: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;
 		height: 100%;
+    display: flex;
+    align-items: center;
 	}
 
 	main {
-		height: 100%;
+		width: 100%;
+    max-width: 1200px;
 		display: flex;
 		justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
 	}
 
-	#hero {
+	#main {
 		display: flex;
 		align-items: center;
 		flex-direction: column;

@@ -8,7 +8,12 @@ const { deadline, title = "Launch in..." } = Astro.props;
 ---
 
 <div class="countdown-container" data-deadline={deadline}>
-  {title && <h2>{title}</h2>}
+  <div class="announcement">
+    <span class="announce-top">AVAILABLE</span>
+    <span class="announce-bottom">JUNE 8, 2026</span>
+  </div>
+  <div class="divider"></div>
+  <h2>{title}</h2>
   
   <div class="timer">
     <div class="time-block">
@@ -66,46 +71,72 @@ const { deadline, title = "Launch in..." } = Astro.props;
 <style>
   .countdown-container {
     text-align: center;
-    padding: 1rem 0;
-    margin: 0; 
+    padding: .5rem 0; /* Increase padding to let it breathe */
+  }
+
+  .announcement {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+  }
+
+  .announce-top {
+    font-size: 0.85rem; /* Small and spaced out like your nav-item */
+    font-weight: 700;
+    letter-spacing: 0.4em; 
+    color: #6b4423;
+    opacity: 0.6;
+    margin-bottom: 0.5rem;
+    font-family: "Inter", "Helvetica Neue", sans-serif;
+  }
+
+  .announce-bottom {
+    font-size: 3rem; /* Huge Hero Date */
+    font-weight: 900;
+    color: #d78941; /* Brand color for the date */
+    letter-spacing: -0.02em;
+    font-family: "Playfair Display", serif; /* Match your logo's serif */
+  }
+
+  /* Replace the heavy divider with a subtle one or just space */
+  .divider {
+    width: 60px; /* Much smaller */
+    height: 1px; /* Thinner */
+    background: #d78941;
+    margin: 1.5rem auto;
+    opacity: 0.4;
   }
 
   h2 {
-    width: 100%;
-    text-align: center;
-    font-size: 2rem; 
-    color: #6b4423; 
-    margin-bottom: 0.5rem;
-    font-weight: 700;
+    font-size: 1.2rem; /* Subordinate this to the timer */
+    letter-spacing: 0.3em;
+    color: #6b4423;
     text-transform: uppercase;
-    letter-spacing: 0.2em;
+    margin-bottom: 1.5rem;
   }
 
   .timer {
     display: flex;
-    justify-content: flex-start;
-    gap: 2rem;
-  }
-
-  .time-block {
-    display: flex;
-    flex-direction: column;
-    /* Remove min-width to let typography breathe */
+    justify-content: center;
+    gap: 3rem; /* More gap makes it feel "premium" */
   }
 
   .value {
-    font-size: 2.8rem; /* Larger and more "heroic" */
+    font-size: 3.5rem; /* Large, clean numbers */
     line-height: 1;
     font-weight: 900;
-    color: #d78941; 
-    font-family: "Playfair Display", serif; /* Match your logo */
+    color: #6b4423; /* Darker color for numbers so they anchor the page */
+    font-family: "Playfair Display", serif;
   }
 
   .label {
-    font-size: 0.65rem;
-    margin-top: 4px;
+    font-size: 0.7rem;
+    margin-top: 8px;
+    font-weight: 700;
     color: #6b4423;
-    opacity: 0.6;
-    letter-spacing: 0.1em;
+    opacity: 0.5;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
   }
 </style>
