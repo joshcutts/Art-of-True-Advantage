@@ -1,0 +1,111 @@
+---
+interface Props {
+  deadline: string; // Format: "2026-12-31T23:59:59"
+  title?: string;
+}
+
+const { deadline, title = "Launch in..." } = Astro.props;
+---
+
+<div class="countdown-container" data-deadline={deadline}>
+  {title && <h2>{title}</h2>}
+  
+  <div class="timer">
+    <div class="time-block">
+      <span class="value" id="days">00</span>
+      <span class="label">Days</span>
+    </div>
+    <div class="time-block">
+      <span class="value" id="hours">00</span>
+      <span class="label">Hours</span>
+    </div>
+    <div class="time-block">
+      <span class="value" id="minutes">00</span>
+      <span class="label">Mins</span>
+    </div>
+    <div class="time-block">
+      <span class="value" id="seconds">00</span>
+      <span class="label">Secs</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  function updateCountdown() {
+    const container = document.querySelector('.countdown-container');
+    if (!container) return;
+
+    const deadline = new Date(container.getAttribute('data-deadline')!).getTime();
+    
+    const timer = setInterval(() => {
+      const now = new Date().getTime();
+      const diff = deadline - now;
+
+      if (diff <= 0) {
+        clearInterval(timer);
+        container.innerHTML = "<h3>The book is now available!</h3>";
+        return;
+      }
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('days')!.textContent = d.toString().padStart(2, '0');
+      document.getElementById('hours')!.textContent = h.toString().padStart(2, '0');
+      document.getElementById('minutes')!.textContent = m.toString().padStart(2, '0');
+      document.getElementById('seconds')!.textContent = s.toString().padStart(2, '0');
+    }, 1000);
+  }
+
+  // Runs on initial load
+  updateCountdown();
+</script>
+
+<style>
+  .countdown-container {
+    text-align: center;
+    padding: 1rem 0;
+    margin: 0; 
+  }
+
+  h2 {
+    width: 100%;
+    text-align: center;
+    font-size: 2rem; 
+    color: #6b4423; 
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+  }
+
+  .timer {
+    display: flex;
+    justify-content: flex-start;
+    gap: 2rem;
+  }
+
+  .time-block {
+    display: flex;
+    flex-direction: column;
+    /* Remove min-width to let typography breathe */
+  }
+
+  .value {
+    font-size: 2.8rem; /* Larger and more "heroic" */
+    line-height: 1;
+    font-weight: 900;
+    color: #d78941; 
+    font-family: "Playfair Display", serif; /* Match your logo */
+  }
+
+  .label {
+    font-size: 0.65rem;
+    margin-top: 4px;
+    color: #6b4423;
+    opacity: 0.6;
+    letter-spacing: 0.1em;
+  }
+</style>
