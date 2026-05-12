@@ -26,6 +26,21 @@ import Countdown from '../components/Countdown.astro'
     </section>
     <section id="about">
       <h2>About The Art of True Advantage</h2>
+      <div class="split">
+        <img src={bookcover.src} style="max-width:300px"alt="book cover">
+        <div class="text" style="height:450px; max-width:700px;">
+        <h3 style="margin-top: 30px; margin-bottom:40px;">Improve Your Mindset, Elevate Your Results.</h3>
+        <p style="margin-bottom:10px;">Harness and develop your innate ability to:</p>
+        <ul>
+            <li style="margin-left:25px;">Respond to challenges and difficulty in a positive and productive manner.</li>
+            <li style="margin-left:25px;">Lead yourself and others effectively and compassionately.</li>
+            <li style="margin-left:25px;">Enjoy meaningful and fulfilling relationships.</li>
+            <li style="margin-left:25px;">Live a life that is reflective of your deepest values.</li>
+        </ul>
+        <p style="margin-top:40px;">All of us have far more more influence than we routinely realize. The Art of True Advantage is the blueprint for becoming more effective at using the influence we have to craft the life we deeply want to lead.</p>
+      </div>
+      </div>
+      
     </section>
     <section id="reviews">
       <h2>Advanced Praise</h2>
@@ -67,6 +82,12 @@ import Countdown from '../components/Countdown.astro'
 		justify-content: center;
 		padding: 16px;
 	}
+
+  .split {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
 
 	h1 {
 		font-size: 22px;
