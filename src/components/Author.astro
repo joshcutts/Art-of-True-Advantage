@@ -1,0 +1,92 @@
+---
+import christopher_boyer from '../assets/Christopher_Boyer.jpg'
+import background from '../assets/background.jpg'
+---
+
+<section 
+id="author" 
+style={{ 
+  background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${background.src})`,
+  backgroundSize: 'cover', 
+  backgroundPosition: 'center',
+  width: '100%' 
+}}>
+  <div class="author-container">
+    <div class="author-content">
+      
+      
+      <div class="about-text">
+        <h1 class="author-title">About the Author</h1>
+        <h2>Christopher Boyer</h2>
+        <img src={christopher_boyer.src} class="author-photo" alt="author portrait">
+        <p>I have always been interested in the intersection of human performance, perspective, and functional philosophy. My experience in martial arts has taught me that there are very real common denominators to functional performance. The more calm and composed an individual is, the greater chance they have of remaining intentional, executing well, and driving the results they want.</p>
+        <p>Mindset matters. The way we see the world, and the moment in front of us, determines how we respond to it. The more functional the mindset, the more effective the responses. Functional mindsets can be developed by anyone willing to put the time, attention, and effort into the practice.</p>
+        <p>My wife and I have taught countless students from all walks of life to be more strong, secure, and functional over the last 36 years. I have gone on to teach executives and teams best practices for optimal outcomes. Most recently, I have the privilege of overseeing and teaching elements from the Art of True Advantage to professionals in Leadership Lake Oswego, one of our community’s longest standing leadership programs.</p>
+        <p>This book is my bucket list. The thing I wanted to ensure I did with my time on the planet. This is me giving voice to my deepest values and sharing the things that I think matter the most.</p>
+        <p>Here is to helping individuals and organizations generate better outcomes through the adoption of better perspectives and practices. The more resilient we become individually and collectively, the more we give voice to our deeper values and the more true advantage we create for everyone.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #author {
+    width: 100%;
+    padding: 60px 20px;
+    display: flex;
+    justify-content: center;
+    color: white;
+  }
+
+  /* Inner wrapper to keep content centered within the 1200px main */
+  .author-container {
+    max-width: 1000px;
+    width: 100%;
+  }
+
+  .author-content {
+    display: flex;
+    align-items: flex-start; /* Aligns photo with the top of the text */
+    gap: 40px; /* Space between photo and text */
+  }
+
+  .author-photo {
+    float: left; /* This makes the text wrap around it */
+    width: 165px; /* Adjust size as needed */
+    margin-right: 30px; /* Space between image and text */
+    margin-bottom: 15px; /* Space below image */
+    
+    /* Styling to make it look less "hanging there" */
+    border: 2px solid rgba(255, 255, 255, 0.2); /* Subtle frame */
+    /* border-radius: 4px; Slight rounding */
+    /* box-shadow: 10px 10px 0px rgba(215, 137, 65, 0.5); An accent shadow using your orange color #d78941 */
+    }
+
+  #author .about-text h1.author-title {
+      text-decoration: underline;
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: white !important;
+  }
+
+  .about-text h2 {
+    margin-bottom: 20px;
+    color: white;
+    font-size: 1.6rem;
+  }
+
+  .about-text p {
+    color: white;
+    line-height: 1.6;
+    margin-bottom: 1.5rem; /* Replaces <br> for cleaner spacing */
+  }
+
+  /* Responsive adjustment for mobile */
+  @media (max-width: 768px) {
+    .author-content {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  }
+</style>

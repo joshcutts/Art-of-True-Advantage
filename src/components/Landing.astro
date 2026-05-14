@@ -1,0 +1,60 @@
+---
+import bookcover from '../assets/book_cover.jpg'
+import Countdown from '../components/Countdown.astro'
+---
+
+<section id="landing">
+  <img src={bookcover.src} class="outline" style="max-width:350px" alt="the ART of TRUE ADVANTAGE" />
+  <Countdown deadline="2026-06-08T00:00:00-07:00" />
+</section>
+
+<style>
+.outline {
+  border: 2px solid;
+  /* Creates a gradient from your orange to a darker version */
+  border-image-source: linear-gradient(135deg, #d78941, #8e5a2b);
+  border-image-slice: 1;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+  .launch-team {
+    display: flex;
+    justify-content: center;
+  }
+
+	main {
+		width: 100%;
+    max-width: 1200px;
+		display: flex;
+		justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+	}
+
+	#landing {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
+		padding: 16px;
+	}
+
+  
+
+  .split {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
+
+	h1 {
+		font-size: 22px;
+		margin-top: 0.25em;
+	}
+
+  
+
+</style>
+
+

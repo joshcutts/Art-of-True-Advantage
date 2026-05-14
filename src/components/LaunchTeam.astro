@@ -1,0 +1,174 @@
+---
+import want_you from '../assets/want_you_final.jpg'
+---
+
+<section id="launchteam" class="launch-section">
+  <div class="launch-container">
+    <span class="bottom-line">LAUNCH TEAM</span>
+    <div class="launch-graphic">
+      <img src={want_you.src} alt="Join the Launch Team">
+    </div>
+
+    <div class="launch-grid">
+      <div class="launch-info">
+        <h2>What is the Launch Team?</h2>
+        <ul>
+          <li>Support the <em>Art of True Advantage</em> launch by joining the team</li>
+          <li>Stay informed about the book release and special events</li>
+          <li>Receive an exclusive invitation to the Celebratory Book Signing</li>
+        </ul>
+      </div>
+      
+      <div class="launch-info">
+        <h2>How to Promote</h2>
+        <ul>
+          <li>Purchase the book upon release</li>
+          <li>Read and engage with the content</li>
+          <li>Leave an honest review within the first week of launch</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="contact-form">
+      <form action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="e0113dd9-ab2c-4165-bae7-978a1dc2cffb">
+        <div class="form-group">
+          <input type="text" name="Name" placeholder="Full Name" required>
+          <input type="email" name="email" placeholder="Email Address" required>
+        </div>
+        <button type="submit" class="btn-launch">JOIN THE LAUNCH TEAM</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+  .launch-section {
+    width: 100%;
+    padding: 50px 20px;
+    background-color: #ffffff; /* Or keep white if you want a visual break from the dark sections */
+    display: flex;
+    justify-content: center;
+  }
+
+  .launch-container {
+    max-width: 1000px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .bottom-line {
+    font-size: 1.1rem; /* Emphasis */
+    margin: 50px 50px;
+    font-weight: 800;
+    color: #d78941; /* Highlights the call to action */
+    white-space: nowrap;
+  }
+
+  .launch-graphic {
+    margin-bottom: 50px;
+  }
+
+  .launch-graphic img {
+    max-width: 400px;
+    width: 100%;
+    border-radius: 4px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+
+  .launch-grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    text-align: left;
+    margin-bottom: 60px;
+  }
+
+  .launch-info {
+    flex: 1;
+  }
+
+  .launch-info h2 {
+    font-size: 1.5rem;
+    color: #1a1a1a;
+    border-bottom: 3px solid #d78941; /* Orange accent underline */
+    display: inline-block;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .launch-info ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .launch-info li {
+    margin-bottom: 15px;
+    position: relative;
+    padding-left: 25px;
+    line-height: 1.5;
+  }
+
+  /* Custom orange bullet points */
+  .launch-info li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: #d78941;
+    font-weight: bold;
+  }
+
+  /* Form Styling */
+  .contact-form {
+    background: #f4f4f4;
+    padding: 40px;
+    border-radius: 8px;
+  }
+
+  .form-group {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .contact-form input {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 350px;
+    font-family: inherit;
+  }
+
+  .btn-launch {
+    background-color: #1a1a1a;
+    color: white;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    letter-spacing: 1px;
+  }
+
+  .btn-launch:hover {
+    background-color: #d78941;
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .launch-grid {
+      flex-direction: column;
+    }
+    .form-group {
+      flex-direction: column;
+      align-items: center;
+    }
+    .contact-form input {
+      max-width: 100%;
+    }
+  }
+</style>

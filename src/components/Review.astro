@@ -1,0 +1,201 @@
+---
+import bg_praise from '../assets/bg_praise2.jpg'
+---
+<section 
+  class="quotes" 
+  id="reviews" 
+  style={`background: url(${bg_praise.src}) no-repeat center / cover fixed;`}
+>
+  <div class="praise_title">Advanced Praise for: <span style="font-style:italic;">the ART of</span> TRUE ADVANTAGE</div>
+  
+  <div class="slider-container">
+    <button class="nav-btn prev" id="prevBtn">❮</button>
+    
+    <div class="quote-overflow">
+      <div class="quote-track" id="quoteTrack">
+        <div class="quote-card">
+          <p>“The Art of True Advantage: Best Practices for Optimal Outcomes is an outstanding new resource for continuing to become your best self. Its author, Christopher Boyer, is one of the best leadership self-realization growth teachers that I have ever seen and been inspired by. His ability and capabilities in lighting the path to personal leadership growth from the most abstract truths to the actionable “know hows” are extraordinary... I would make it required reading for my students.”</p>
+          <hr>
+          <p class="author-name">Dr. William A. Korach</p>
+          <p class="author-title">Retired Superintendent of Schools, Lake Oswego, OR; PSU Resident Professor</p>
+        </div>
+
+        <div class="quote-card">
+          <p>“The Art of True Advantage is not merely a collection of ideas—it is a complete system. It builds upon the foundation of awareness and creates continuous Kaizen cycles through each level of growth and development. This book provides a practical framework for anyone seeking mastery, self-awareness, and continual improvement. Christopher has created more than a philosophy; he has built a system for mastery.”</p>
+          <hr>
+          <p class="author-name">Cory Mahaffey</p>
+          <p class="author-title">Founder and Managing Partner</p>
+        </div>
+
+        <div class="quote-card">
+          <p>“There are books that inform, and there are books that shape the way you operate. The Art of True Advantage falls decisively into the latter... This is not a book to be read once and placed on a shelf. It is something to return to often. The concepts are designed to be applied in the middle of real decisions, real conversations, and real pressure. Over time, they compound.”</p>
+          <hr>
+          <p class="author-name">Bryan Welton</p>
+          <p class="author-title">Founder, Investor & Entrepreneur</p>
+        </div>
+
+        <div class="quote-card">
+          <p>“This book feels less like something you read and more like something you experience, quietly, deeply, and in ways that linger long after you’ve turned the final page. It doesn’t overwhelm you with complicated theories... instead, it walks beside you, offering simple, clear guidance on how to live a fuller, kinder, more meaningful life.”</p>
+          <hr>
+          <p class="author-name">Paul Terrell</p>
+          <p class="author-title">Adjunct Professor Portland State University</p>
+        </div>
+
+        <div class="quote-card">
+          <p>“Christopher Boyer has created a compendium of valuable lessons available to all of us based on his lifetime devotion to the betterment of humanity. He has amplified the intellectual and behavioral skills of martial arts reflected in outcomes of respect and resilience. This material is both informational and instructional and presented in an easy to understand manner.”</p>
+          <hr>
+          <p class="author-name">Edward L. Brewington</p>
+          <p class="author-title">Retired Senior VP, Educator, Black Belt</p>
+        </div>
+
+        <div class="quote-card">
+          <p>“What this book does well is close the gap between intention and action. It forces an honest look at distraction, misplaced emotion, and avoidance. This is not about motivation. It is about rightly ordered vision. When attention and intention line up with reality, things change. It removes the easy outs and puts responsibility back where it belongs.”</p>
+          <hr>
+          <p class="author-name">Gary Hanifan</p>
+          <p class="author-title">Former Senior Managing Director Accenture Strategy</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="nav-btn next" id="nextBtn">❯</button>
+  </div>
+</section>
+
+<style>
+  .quotes {
+    padding: 80px 20px;
+    color: white;
+    text-align: center;
+    width: 100%;
+  }
+
+  .praise_title {
+    font-size: 2rem;
+    margin-bottom: 40px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  }
+
+  .slider-container {
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .quote-overflow {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .quote-track {
+    display: flex;
+    transition: transform 0.6s ease-in-out;
+    gap: 20px;
+  }
+
+  .quote-card {
+    min-width: calc(50% - 10px); /* Shows 2 at a time on desktop */
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 8px;
+    border: 1px solid rgba(215, 137, 65, 0.3); /* Subtle orange border */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+    box-sizing: border-box;
+  }
+
+  .quote-card p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  .author-name {
+    margin-top: 15px;
+    font-weight: bold;
+    font-style: normal !important;
+    color: #d78941; /* Book accent color */
+  }
+
+  .author-title {
+    font-size: 0.9rem !important;
+    text-decoration: underline;
+    font-style: normal !important;
+  }
+
+  .nav-btn {
+    background: rgba(215, 137, 65, 0.8);
+    border: none;
+    color: white;
+    padding: 15px;
+    cursor: pointer;
+    border-radius: 50%;
+    margin: 0 10px;
+    z-index: 10;
+    transition: scale 0.2s;
+  }
+
+  .nav-btn:hover {
+    scale: 1.1;
+    background: #d78941;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    margin: 20px 0;
+  }
+
+  @media (max-width: 768px) {
+    .quote-card {
+      min-width: 100%; /* Shows 1 at a time on mobile */
+    }
+  }
+
+  @media (max-width: 768px) {
+  #reviews {
+    /* Disables the fixed effect on mobile for better compatibility */
+    background-attachment: scroll !important;
+  }
+}
+</style>
+
+<script>
+  const track = document.getElementById('quoteTrack');
+  const cards = document.querySelectorAll('.quote-card');
+  const nextBtn = document.getElementById('nextBtn');
+  const prevBtn = document.getElementById('prevBtn');
+  
+  let index = 0;
+  const totalCards = cards.length;
+  const visibleCards = window.innerWidth > 768 ? 2 : 1;
+  const maxIndex = totalCards - visibleCards;
+
+  function updateSlider() {
+    const cardWidth = cards[0].offsetWidth + 20; // width + gap
+    track.style.transform = `translateX(-${index * cardWidth}px)`;
+  }
+
+  nextBtn.addEventListener('click', () => {
+    index = (index >= maxIndex) ? 0 : index + 1;
+    updateSlider();
+  });
+
+  prevBtn.addEventListener('click', () => {
+    index = (index <= 0) ? maxIndex : index - 1;
+    updateSlider();
+  });
+
+  // Auto-rotate every 20 seconds
+  setInterval(() => {
+    nextBtn.click();
+  }, 20000);
+
+  // Re-calculate on window resize
+  window.addEventListener('resize', updateSlider);
+</script>
