@@ -11,6 +11,18 @@
           <a href="#launchteam" class="launch-team-link">
             <span class="top-line">JOIN THE</span>
             <span class="bottom-line">LAUNCH TEAM</span>
+            <span class="extra-sparkle s1"></span>
+            <span class="extra-sparkle s2"></span>
+            <span class="extra-sparkle s3"></span>
+            <span class="extra-sparkle s4"></span>
+            <span class="extra-sparkle s5"></span>
+            <span class="extra-sparkle s6"></span>
+            <span class="extra-sparkle s7"></span>
+            <span class="extra-sparkle s8"></span>
+            <span class="extra-sparkle s9"></span>
+            <span class="extra-sparkle s10"></span>
+            <span class="extra-sparkle s11"></span>
+            <span class="extra-sparkle s12"></span>
           </a>
         </li>
         <li><a href="#about" class="standard-link">ABOUT</a></li>
@@ -55,6 +67,7 @@
     letter-spacing: 0.05em; /* Helps with "Advantage" being a long word */
     text-transform: uppercase;
     color: #6b4423;
+    white-space: nowrap;
   }
 
   .logo em {
@@ -68,6 +81,7 @@
     letter-spacing: 0.14em; /* Adjusted to stretch "ART of TRUE" */
     margin-bottom: 2px;
     margin-left: .18rem
+    /* white-space: nowrap; */
   }
 
   .line-two {
@@ -106,19 +120,162 @@
     width: 100%;
   }
 
+
+  .launch-team {
+    width: 100%;
+    border-top: 1px solid #d78941;
+    border-bottom: 1px solid #d78941;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    z-index: 1;
+  }
+
   /* The "Join the Launch Team" Box */
   .launch-team-link {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    line-height: 1.1;
-    text-align: center;
-    min-width: 180px;
+    /* line-height: 1.1; */
+    /* text-align: center; */
+    min-width: 150px;
     padding: .5rem 2rem;
     text-decoration: none;
-    transition: all 0.2s ease;
+    position: relative;
+    z-index: 5;
   }
+
+  .launch-team::before,
+  .launch-team::after,
+  .extra-sparkle {
+    content: "";
+    position: absolute;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 4px rgba(138, 154, 171, 0.4));
+    /* Appearance */
+    background-color: #d78941;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg width='160' height='160' viewBox='0 0 160 160' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M80 0C80 0 84.2846 41.2925 101.496 58.504C118.707 75.7154 160 80 160 80C160 80 118.707 84.2846 101.496 101.496C84.2846 118.707 80 160 80 160C80 160 75.7154 118.707 58.504 101.496C41.2925 84.2846 0 80 0 80C0 80 41.2925 75.7154 58.504 58.504C75.7154 41.2925 80 0 80 0Z' fill='black'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg width='160' height='160' viewBox='0 0 160 160' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M80 0C80 0 84.2846 41.2925 101.496 58.504C118.707 75.7154 160 80 160 80C160 80 118.707 84.2846 101.496 101.496C84.2846 118.707 80 160 80 160C80 160 75.7154 118.707 58.504 101.496C41.2925 84.2846 0 80 0 80C0 80 41.2925 75.7154 58.504 58.504C75.7154 41.2925 80 0 80 0Z' fill='black'/%3E%3C/svg%3E");
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    animation: comeau-twinkle 2.5s linear infinite;
+    opacity: 0;
+    }
+
+/* Sparkle 1: Top Right */
+  .launch-team::before {
+    width: 20px; height: 20px;
+    top: 5px; right: 10px;
+    animation-delay: 0s;
+  }
+
+  /* Sparkle 2: Bottom Left */
+  .launch-team::after {
+    width: 15px; height: 15px;
+    bottom: 5px; left: 15px;
+    animation-delay: 0.2s;
+  }
+
+  /* Sparkle 3: Top Left */
+  .s1 {
+    width: 12px; height: 12px;
+    top: 8px; left: 10px;
+    animation-delay: 0.8s;
+  }
+
+  /* Sparkle 4: Center Right */
+  .s2 {
+    width: 10px; height: 10px;
+    top: 5%; right: 5px;
+    animation-delay: 2.2s;
+  }
+
+  /* Sparkle 5: Bottom Right */
+  .s3 {
+    width: 14px; height: 14px;
+    bottom: .5px; right: 25%;
+    animation-delay: 1.2s;
+  }
+
+  .s4 {
+    width: 6px; height: 6px;
+    bottom: 4px; right: 50%;
+    animation-delay: 0.6s;
+  }
+
+  .s5 {
+    width: 12px; height: 12px;
+    top: 20px; left: 20px;
+    animation-delay: 1.5s;
+  }
+
+  .s6 {
+    width: 8px; height: 8px;
+    top: 5px; left: 20px;
+    animation-delay: 0.9s;
+  }
+
+  .s7 {
+    width: 12px; height: 12px;
+    top: 2px; left: 50px;
+    animation-delay: 1.9s;
+  }
+  
+  .s8 {
+    width: 10px; height: 10px;
+    top: 0.5px; left: 40px;
+    animation-delay: 0.6s;
+  }
+
+  .s9 {
+    width: 8px; height: 8px;
+    top: 0.5px; right: 70px;
+    animation-delay: 1.2s;
+  }
+
+  .s10 {
+    width: 8px; height: 8px;
+    top: 7px; right: 50px;
+    animation-delay: 0.2s;
+  }
+
+  .s11 {
+    width: 11px; height: 11px;
+    top: 1px; right: 42px;
+    animation-delay: 1.5s;
+  }
+
+  .s12 {
+    width: 7px; height: 7px;
+    top: 0.5px; right: 38px;
+    animation-delay: 1.8s;
+  }
+
+@keyframes comeau-twinkle {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  /* THE BURST: It reaches full size and 1.0 opacity very quickly */
+  15% {
+    transform: scale(1.2) rotate(60deg); /* Only rotated 30 degrees so far */
+    opacity: 1;
+  }
+  /* THE FADE: It shrinks back down quickly, but the rotation isn't done */
+  30% {
+    transform: scale(0) rotate(120deg);
+    opacity: 1;
+  }
+  /* THE FINISH: It stays invisible but finishes the 180-degree rotation 
+     This ensures that the NEXT time it appears, it starts from a 'fresh' angle */
+  100% {
+    transform: scale(0) rotate(180deg);
+    opacity: 0;
+  }
+}
+
 
   .nav-links a:hover .bottom-line {
     color: #bf7635; /* Darker orange on hover */
@@ -153,13 +310,6 @@
     color: #d78941;
   }
 
-  .launch-team {
-    width: 100%;
-    border-top: 1px solid #d78941;
-    border-bottom: 1px solid #d78941;
-    display: flex;
-    justify-content: center;
-  }
 
   .top-line {
     font-size: 0.7rem;
@@ -171,17 +321,6 @@
     font-weight: 800;
     color: #d78941;
     white-space: nowrap;
-  }
-
-  @media (max-width: 768px) {
-    .nav-links {
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .launch-team-link {
-      min-width: auto;
-    }
   }
 
   /* Simple Mobile Responsive */
