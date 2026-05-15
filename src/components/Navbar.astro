@@ -13,10 +13,10 @@
             <span class="bottom-line">LAUNCH TEAM</span>
           </a>
         </li>
-        <li><a href="#about">ABOUT</a></li>
-        <li><a href="#reviews">REVIEWS</a></li>
-        <li><a href="#author">AUTHOR</a></li>
-        <li><a href="#contact">CONTACT</a></li>
+        <li><a href="#about" class="standard-link">ABOUT</a></li>
+        <li><a href="#reviews" class="standard-link">REVIEWS</a></li>
+        <li><a href="#author" class="standard-link">AUTHOR</a></li>
+        <li><a href="#contact" class="standard-link">CONTACT</a></li>
       </ul>
     </div>
     </div>
@@ -31,7 +31,6 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    /* backdrop-filter: solid;  */
     background: #f8f3df; 
     border-bottom: 1px solid #6b4423;
   }
@@ -63,7 +62,7 @@
     margin-right: 0.2rem;
   }
 
-    .line-one {
+  .line-one {
     font-size: 1.1rem;
     font-weight: 700;
     letter-spacing: 0.14em; /* Adjusted to stretch "ART of TRUE" */
@@ -85,15 +84,44 @@
     margin: 0;
   }
 
-  .nav-links a {
-    text-decoration: none;
-    color: #6b4423;
-    font-weight: 550;
-    transition: color 0.2s;
+  .nav-links li {
+    display: flex;
+    algin-items: stretch;
   }
 
-  .nav-links a:hover {
-    color: #d78941;
+  /* Standard Link Styling (The "Box") */
+  .nav-links a.standard-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #6b4423;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    padding: 1rem 1.5rem; /* The padding is now INSIDE the link */
+    border-top: 1px solid #d78941;
+    border-bottom: 1px solid #d78941;
+    transition: all 0.2s ease;
+    width: 100%;
+  }
+
+  /* The "Join the Launch Team" Box */
+  .launch-team-link {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    line-height: 1.1;
+    text-align: center;
+    min-width: 180px;
+    padding: .5rem 2rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .nav-links a:hover .bottom-line {
+    color: #bf7635; /* Darker orange on hover */
   }
 
   .cta-button {
@@ -109,31 +137,6 @@
   .cta-button:hover {
     background-color: #bf7635; /* Slightly darker shade */
     transform: translateY(-1px);
-  }
-
-
-
-  .nav-links li:not(.launch-team) {
-    width: 100%;
-    border-top: 1px solid #d78941;
-    border-bottom: 1px solid #d78941;
-    padding: .95rem 1rem;
-    display: flex;
-    justify-content: center;
-  }
-
-  .nav-links {
-    display: flex;
-    list-style: none;
-    align-items: center; /* Vertically centers all items */
-    gap: 2rem;
-    margin: 0;
-    padding: 0;
-  }
-
-  .nav-links li {
-    display: flex;
-    align-items: center;
   }
 
   .nav-links a {
@@ -154,19 +157,8 @@
     width: 100%;
     border-top: 1px solid #d78941;
     border-bottom: 1px solid #d78941;
-    padding: .5rem 1rem;
     display: flex;
     justify-content: center;
-  }
-
-  /* The Split "Launch Team" Item */
-  .launch-team-link {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.1;
-    text-align: center;
-    min-width: 180px; /* Makes it "longer across" to draw the eye */
-    padding: 0 1rem;
   }
 
   .top-line {
@@ -175,9 +167,9 @@
   }
 
   .bottom-line {
-    font-size: 1.1rem; /* Emphasis */
+    font-size: 1.1rem;
     font-weight: 800;
-    color: #d78941; /* Highlights the call to action */
+    color: #d78941;
     white-space: nowrap;
   }
 
@@ -190,6 +182,7 @@
     .launch-team-link {
       min-width: auto;
     }
+  }
 
   /* Simple Mobile Responsive */
   @media (max-width: 768px) {
