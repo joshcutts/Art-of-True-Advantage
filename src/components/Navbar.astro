@@ -31,7 +31,11 @@
         <li><a href="#contact" class="standard-link">CONTACT</a></li>
       </ul>
     </div>
-    </div>
+    <button class="hamburger" id="menu-toggle" aria-label="Toggle Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
 
     <!-- <a href="#buy" class="cta-button">Order Now</a> -->
   </div>
@@ -323,10 +327,88 @@
     white-space: nowrap;
   }
 
-  /* Simple Mobile Responsive */
-  @media (max-width: 768px) {
-    .nav-links {
-      display: none; /* Add a hamburger menu later if needed */
-    }
+  /* 1. Hamburger Icon Styling */
+.hamburger {
+  display: none; /* Hidden by default */
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.hamburger span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #6b4423;
+  transition: 0.3s;
   }
+
+/* 2. Responsive Breakpoint */
+@media (max-width: 1024px) { 
+  .nav-links {
+    display: none; 
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    
+    /* THE FIX: Anchor to the right, let width fit the text content */
+    left: auto;
+    right: 0;
+    width: max-content; 
+    min-width: 200px; /* Guarantees a clean baseline width */
+    
+    /* Visual Polishing */
+    background: #f8f3df;
+    padding: .25rem 0; /* Vertical padding inside the menu box */
+    border: 1px solid #6b4423; /* Fully enclose the box instead of just a bottom border */
+    border-radius: 4px;
+    box-shadow: 0 10px 25px rgba(107, 68, 35, 0.15); /* Soft brown drop shadow */
+    gap: 0;
+  }
+
+  .nav-links.active {
+    display: flex; 
+  }
+
+  .hamburger {
+    display: flex; 
+  }
+
+  /* Structural fixes for the internal links on mobile */
+  .nav-links li, .nav-links li:not(.launch-team) {
+    width: 100%;
+    border: none; 
+    display: block; /* Stack rows cleanly */
+  }
+
+  /* Make the links feel like menu items */
+  .nav-links a.standard-link, .launch-team-link {
+    border: none;
+    padding: 1rem 2rem; /* Generous side padding for the text */
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left; /* Align text nicely to the left of the menu box */
+    justify-content: flex-start;
+  }
+
+  /* Add a subtle hover highlight background for mobile users */
+  .nav-links a:hover {
+    background-color: rgba(215, 137, 65, 0.08);
+  }
+}
 </style>
+
+<script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const navLinks = document.querySelector('.nav-links');
+
+  menuToggle?.addEventListener('click', () => {
+    navLinks?.classList.toggle('active');
+    
+    // Optional: Animate hamburger to an 'X'
+    menuToggle.classList.toggle('is-active');
+  });
+</script>
