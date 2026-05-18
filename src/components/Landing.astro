@@ -4,12 +4,15 @@ import Countdown from '../components/Countdown.astro'
 ---
 
 <section id="landing">
-  <img src={bookcover.src} class="outline" style="max-width:350px" alt="the ART of TRUE ADVANTAGE" />
+  <div class="image-wrapper">
+    <img src={bookcover.src} class="outline" alt="the ART of TRUE ADVANTAGE" />
+  </div>
   <Countdown deadline="2026-06-08T00:00:00-07:00" />
 </section>
 
 <style>
 .outline {
+  width: 100%;
   border: 1px solid;
   /* Creates a gradient from your orange to a darker version */
   border-image-source: linear-gradient(135deg, #d78941, #8e5a2b);
@@ -39,6 +42,24 @@ import Countdown from '../components/Countdown.astro'
 		justify-content: center;
 		padding: 16px;
 	}
+
+  .image-wrapper {
+    width: 100%;
+    max-width: 320px;
+    display: flex;
+    justify-content: center;
+  }
+
+  @media (max-width: 480px) {
+    #landing {
+      padding: 1.5rem 1rem;
+      gap: 1.5rem; /* Tightens the gap so the timer pulls up higher */
+    }
+    
+    .image-wrapper {
+      max-width: 180px; /* Scales the book cover down on small mobile phones */
+    }
+  }
 </style>
 
 
