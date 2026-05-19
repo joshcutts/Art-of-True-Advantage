@@ -1,53 +1,48 @@
 ---
 import want_you from '../assets/want_you_final.jpg'
+import rocket from '../assets/noun-rocket.svg'
 ---
 
 <section id="launchteam" class="launch-section">
   <div class="launch-container">
-    <div class="launch-graphic">
-      <img src={want_you.src} alt="Join the Launch Team">
-    </div>
 
     <div class="launch-grid">
+      <img src={rocket.src} id="rocket" alt="Join the Launch Team">
       <div class="launch-info">
-        <h2>What is the Launch Team?</h2>
+        <h2 class="title">Launch Team</h2>
         <ul>
-          <li>Support the <em>Art of True Advantage</em> launch by joining the team</li>
+          <li>Support the <em>Art of True Advantage</em> launch by joining the Launch Team</li>
           <li>Stay informed about the book release and special events</li>
-          <li>Receive an exclusive invitation to the Celebratory Book Signing</li>
+          <li style="font-weight: bold; font-size: 1.5em;">Receive an exclusive invitation to the Celebratory Book Signing</li>
         </ul>
       </div>
+    </div>
       
-      <div class="launch-info">
-        <h2>Promote the Book</h2>
-        <ul>
-          <li>Purchase the book upon release</li>
-          <li>Read!</li>
-          <li>Leave an honest review within the first week of launch</li>
-        </ul>
+    <div class="contact-section-wrapper">
+      <img src={want_you.src} id="launch-graphic" alt="Join the Launch Team">
+      
+      <div class="contact-form">
+        <form action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="e0113dd9-ab2c-4165-bae7-978a1dc2cffb">
+          <div class="form-group">
+            <input type="text" name="Name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email Address" required>
+          </div>
+          <button type="submit" class="btn-launch">JOIN THE LAUNCH TEAM</button>
+        </form>
       </div>
     </div>
     
-    <div class="contact-form">
-      <form action="https://api.web3forms.com/submit" method="POST">
-        <input type="hidden" name="access_key" value="e0113dd9-ab2c-4165-bae7-978a1dc2cffb">
-        <div class="form-group">
-          <input type="text" name="Name" placeholder="Full Name" required>
-          <input type="email" name="email" placeholder="Email Address" required>
-        </div>
-        <button type="submit" class="btn-launch">JOIN THE LAUNCH TEAM</button>
-      </form>
-    </div>
-  </div>
-</section>
+  </div> </section>
 
 <style>
   .launch-section {
     width: 100%;
-    padding: 50px 20px;
-    background-color: #ffffff; /* Or keep white if you want a visual break from the dark sections */
+    padding: 60px 20px;
     display: flex;
     justify-content: center;
+    scroll-margin-top: 80px;
+    background-color: #1a1a1a;
   }
 
   .launch-container {
@@ -56,45 +51,58 @@ import want_you from '../assets/want_you_final.jpg'
     text-align: center;
   }
 
-  .bottom-line {
-    font-size: 1.1rem; /* Emphasis */
-    margin: 50px 50px;
+  .title {
+    font-size: 3.1rem;
     font-weight: 800;
-    color: #d78941; /* Highlights the call to action */
+    color: #d78941;
     white-space: nowrap;
+    word-spacing: .2em;
+    font-style: underline;
   }
 
-  .launch-graphic {
-    margin-bottom: 50px;
+  #rocket {
+    max-width: 200px;
   }
 
-  .launch-graphic img {
-    max-width: 400px;
+  /* Centered Wrapper for image + form combo */
+  .contact-section-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* Centers the image and form horizontally */
+    gap: 30px;
+    margin-top: 40px;
+  }
+
+  #launch-graphic {
+    max-width: 350px;
     width: 100%;
     border-radius: 4px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
   }
 
   .launch-grid {
     display: flex;
     justify-content: space-between;
-    gap: 40px;
+    gap: 60px;
     text-align: left;
     margin-bottom: 60px;
   }
 
   .launch-info {
     flex: 1;
+    white-space: nowrap;
   }
 
   .launch-info h2 {
-    font-size: 1.5rem;
-    color: #1a1a1a;
-    border-bottom: 3px solid #d78941; /* Orange accent underline */
-    display: inline-block;
+    font-size: 2.5rem;
+    color: #d78941;
+    border-bottom: 3px solid #d78941; 
+    display: block; 
+    width: 100%; 
     margin-bottom: 20px;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
+    text-align: center;
   }
 
   .launch-info ul {
@@ -107,9 +115,10 @@ import want_you from '../assets/want_you_final.jpg'
     position: relative;
     padding-left: 25px;
     line-height: 1.5;
+    font-size: 1.4em;
+    color: white;
   }
 
-  /* Custom orange bullet points */
   .launch-info li::before {
     content: "→";
     position: absolute;
@@ -118,31 +127,38 @@ import want_you from '../assets/want_you_final.jpg'
     font-weight: bold;
   }
 
-  /* Form Styling */
+  /* Form Layout */
   .contact-form {
-    background: #f4f4f4;
-    padding: 40px;
-    border-radius: 8px;
+    width: 100%;
+    max-width: 550px; /* Locks entire form block to exactly match input size constraints */
+    margin: 0 auto;
+  }
+
+  .contact-form form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .form-group {
     display: flex;
+    flex-direction: column;
     gap: 15px;
-    justify-content: center;
     margin-bottom: 20px;
+    width: 100%
   }
 
   .contact-form input {
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    width: 100%;
-    max-width: 350px;
+    width: 100%; /* Spans full width of the 350px parent container */
+    box-sizing: border-box; /* Prevents padding from spilling over sizing limits */
     font-family: inherit;
   }
 
   .btn-launch {
-    background-color: #1a1a1a;
+    background-color: #d78941;
     color: white;
     padding: 15px 40px;
     border: none;
@@ -151,23 +167,28 @@ import want_you from '../assets/want_you_final.jpg'
     cursor: pointer;
     transition: background 0.3s ease;
     letter-spacing: 1px;
+    width: 100%; /* Spans full width of the 350px parent container to line up with inputs */
+    box-sizing: border-box;
   }
 
   .btn-launch:hover {
-    background-color: #d78941;
+    background-color: #b57232; /* Slightly darker shade for interactive feedback */
   }
 
-  /* Mobile Responsive */
+  /* Mobile Responsive overrides */
   @media (max-width: 768px) {
     .launch-grid {
       flex-direction: column;
-    }
-    .form-group {
-      flex-direction: column;
       align-items: center;
+      text-align: center;
     }
-    .contact-form input {
-      max-width: 100%;
+    
+    .launch-info {
+      white-space: normal; /* Permits clean wrapping on standard phone viewports */
+    }
+
+    .launch-info li {
+      text-align: left;
     }
   }
 </style>
