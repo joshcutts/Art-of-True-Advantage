@@ -19,7 +19,7 @@ import bookcover_new from '../assets/book_cover_new.png'
       
       <p class="blueprint-p">All of us have far more influence than we routinely realize. The <em>Art of True Advantage</em> is the blueprint for becoming more effective at using the influence we have to craft the life we deeply want to lead.</p>
       
-      <h3 class="footer">Internal Orientation Drives External Outcomes.</h3>
+      <h3 class="footer">Internal Orientation Drives Outcomes.</h3>
     </div>
   </div>
 </section>
@@ -106,17 +106,44 @@ import bookcover_new from '../assets/book_cover_new.png'
     padding-top: 1em;
   }
 
-  @media (max-width: 768px) {
-    .split {
-      flex-direction: column;
-      text-align: center;
-      gap: 40px;
-    }
-    .values-list {
-      text-align: left;
-    }
-    .about-section {
-      padding: 60px 20px;
-    }
+  /* Mobile Responsive overrides */
+@media (max-width: 768px) {
+  .split {
+    flex-direction: column;
+    align-items: center;    /* Centers the image and text block container horizontally */
+    text-align: center;     /* Centers all standard text inline */
+    gap: 30px;
   }
+
+  .outline {
+    max-width: 260px;       /* Slightly smaller book cover for better mobile proportions */
+  }
+
+  .about-text-block {
+    width: 100%;
+    align-items: center;    /* Ensures nested flex items align to center */
+  }
+
+  /* Shrinks the titles so they snap cleanly onto a single line */
+  .about-text-block h3, 
+  .about-text-block .footer {
+    font-size: 1.2rem !important; 
+    text-align: center;
+    width: 100%;
+    white-space: normal;    /* Fallback protection */
+  }
+
+  /* Centers the list block while keeping the text left-aligned for readability */
+  .values-list {
+    text-align: left;
+    display: inline-block;  /* Shrinks container to content width so it can be centered */
+    max-width: 90%;         /* Prevents it from hugging the screen edges */
+    margin: 0 auto 30px auto; 
+    padding: 0;
+  }
+
+  .values-list li {
+    font-size: 0.95rem;     /* Slightly crisper text for small viewports */
+  }
+}
 </style>

@@ -405,13 +405,11 @@
   const menuToggle = document.getElementById('menu-toggle');
   const navLinks = document.querySelector('.nav-links');
   
-  // 1. Toggle menu when hamburger is clicked
   menuToggle?.addEventListener('click', () => {
     navLinks?.classList.toggle('active');
     menuToggle.classList.toggle('is-active');
   });
 
-  // 2. NEW: Close menu when any link inside the dropdown is clicked
   const individualLinks = document.querySelectorAll('.nav-links a');
   
   individualLinks.forEach(link => {
