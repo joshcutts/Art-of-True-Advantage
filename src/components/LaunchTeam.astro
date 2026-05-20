@@ -26,7 +26,7 @@ import launch_team from '../assets/join_launch_team.jpg'
           <input type="hidden" name="access_key" value="e0113dd9-ab2c-4165-bae7-978a1dc2cffb">
           <div class="form-group">
             <input type="text" name="Name" placeholder="Full Name" required>
-            <input type="email" name="email" placeholder="Email Address" required>
+            <input type="email" name="Email" placeholder="Email Address" required>
           </div>
           <button type="submit" class="btn-launch">JOIN THE LAUNCH TEAM</button>
         </form>
@@ -37,168 +37,198 @@ import launch_team from '../assets/join_launch_team.jpg'
 </section>
 
 <style>
-  .launch-section {
-    width: 100%;
-    padding: 60px 20px;
-    display: flex;
-    justify-content: center;
-    scroll-margin-top: 80px;
-    background-color: #000000;
+/* Ensure universal box sizing across Astro's scoped boundaries */
+.launch-section,
+.launch-container,
+.contact-section-wrapper,
+.launch-info,
+.contact-form,
+.contact-form form,
+.form-group,
+.contact-form input,
+.btn-launch {
+  box-sizing: border-box !important;
+}
+
+.launch-section {
+  width: 100%;
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+  scroll-margin-top: 80px;
+  background-color: #000000;
+}
+
+/* Base Desktop Layout */
+.launch-container {
+  max-width: 1000px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;    
+  gap: 60px;               
+}
+
+.title {
+  font-size: 3.1rem;
+  font-weight: 800;
+  color: #d78941;
+  white-space: nowrap;
+  word-spacing: .2em;
+}
+
+.launch-media-wrapper {
+  flex: 0 0 350px;         
+  display: flex;
+}
+
+#launch-team {
+  width: 100%;
+  height: 100%;            
+  object-fit: cover;       
+  object-position: center; 
+  border-radius: 4px;
+}
+
+.contact-section-wrapper {
+  flex: 1;                 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  gap: 30px;
+  min-width: 0; /* CRITICAL: Allows flex items to shrink smaller than their content */
+}
+
+.launch-info {
+  width: 100%;
+}
+
+.launch-info h2 {
+  font-size: 2.5rem;
+  color: #d78941;
+  border-bottom: 3px solid #d78941; 
+  display: block; 
+  width: 100%; 
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.launch-info ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.launch-info li {
+  margin-bottom: 15px;
+  position: relative;
+  padding-left: 25px;
+  line-height: 1.5;
+  font-size: 1.2em;
+  color: white;
+}
+
+.launch-info li:last-child {
+  margin-bottom: 0;       
+}
+
+.launch-info li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #d78941;
+  font-weight: bold;
+}
+
+.contact-form {
+  width: 100%;
+}
+
+.contact-form form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.contact-form input {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 100%; 
+  font-family: inherit;
+}
+
+.btn-launch {
+  background-color: #d78941;
+  color: white;
+  padding: 15px 40px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  letter-spacing: 1px;
+  width: 100%; 
+}
+
+.btn-launch:hover {
+  background-color: #b57232; 
+}
+
+/* Mobile Responsive overrides */
+@media (max-width: 768px) {
+  .launch-media-wrapper {
+    display: none !important;
   }
 
   .launch-container {
-    max-width: 1000px;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;    /* Forces image wrapper and form column to be exact same height */
-    gap: 60px;               
+    flex-direction: column !important; 
+    align-items: center !important;
+    gap: 20px !important;            
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important; /* Forces layout encapsulation */
   }
-
-  .title {
-    font-size: 3.1rem;
-    font-weight: 800;
-    color: #d78941;
-    white-space: nowrap;
-    word-spacing: .2em;
-  }
-
-  /* Fixed Image Layout Wrapper */
-  .launch-media-wrapper {
-    flex: 0 0 350px;         /* Slightly widened to give the vertical image nice proportion */
-    display: flex;
-  }
-
-  #launch-team {
-    width: 100%;
-    height: 100%;            /* Fills the stretched parent wrapper height completely */
-    object-fit: cover;       /* Crops the image seamlessly to fit the height without squishing */
-    object-position: center; /* Ensures the focus of the graphic stays centered */
-    border-radius: 4px;
-  }
-
-  /* Content Column Adjustments */
+  
   .contact-section-wrapper {
-    flex: 1;                 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Ensures spacing distributes cleanly to define the baseline */
-    gap: 30px;
+    flex: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important; /* Breaks layout lock */
   }
 
-  .launch-info {
-    width: 100%;
-  }
-
-  .launch-info h2 {
-    font-size: 2.5rem;
-    color: #d78941;
-    border-bottom: 3px solid #d78941; 
-    display: block; 
-    width: 100%; 
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-align: center;
+  .title, .launch-info h2 {
+    font-size: 2rem !important;
+    white-space: normal !important; 
+    word-wrap: break-word !important;
+    text-align: center !important;
   }
 
   .launch-info ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    width: 100% !important;
+    padding: 0 !important;
   }
 
   .launch-info li {
-    margin-bottom: 15px;
-    position: relative;
-    padding-left: 25px;
-    line-height: 1.5;
-    font-size: 1.2em;
-    color: white;
+    text-align: left !important;
+    font-size: 1.1em !important;
   }
 
-  .launch-info li:last-child {
-    margin-bottom: 0;       /* Removes trailing list margin to align baseline with form button */
-  }
-
-  .launch-info li::before {
-    content: "→";
-    position: absolute;
-    left: 0;
-    color: #d78941;
-    font-weight: bold;
-  }
-
-  /* Form Layout */
-  .contact-form {
-    width: 100%;
-  }
-
-  .contact-form form {
-    display: flex;
-    flex-direction: column;
-  }
-
+  .contact-form,
+  .contact-form form,
   .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 20px;
-    width: 100%
+    width: 100% !important;
+    max-width: 100% !important;
   }
-
-  .contact-form input {
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    width: 100%; 
-    box-sizing: border-box; 
-    font-family: inherit;
-  }
-
-  .btn-launch {
-    background-color: #d78941;
-    color: white;
-    padding: 15px 40px;
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    letter-spacing: 1px;
-    width: 100%; 
-    box-sizing: border-box;
-  }
-
-  .btn-launch:hover {
-    background-color: #b57232; 
-  }
-
-  /* Mobile Responsive overrides */
-  @media (max-width: 768px) {
-    .launch-container {
-      flex-direction: column; 
-      align-items: center;
-      gap: 40px;            
-    }
-
-    .launch-media-wrapper {
-      flex: 0 0 auto;
-      width: 100%;
-      max-width: 350px;      
-      height: 300px;        /* Gives it a balanced block shape on mobile viewports */
-    }
-    
-    .launch-info {
-      white-space: normal; 
-    }
-
-    .launch-info h2 {
-      text-align: center;
-    }
-
-    .launch-info li {
-      text-align: left;
-    }
-  }
+}
 </style>

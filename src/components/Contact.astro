@@ -89,12 +89,23 @@
   }
 
   @media (max-width: 768px) {
+    .contact-section {
+      padding: 40px 20px; /* Explicitly forces equal left/right padding on the screen edge */
+    }
+
     .contact-grid {
+      display: flex;
       flex-direction: column;
       align-items: center;
-    }
-    .contact-card {
+      gap: 20px 0;        /* 20px gap between stacked cards, 0px gap on the sides */
       width: 100%;
+    }
+    
+    .contact-card {
+      min-width: 0;       
+      width: 100%;        
+      max-width: 320px;   /* Limits width so they look crisp and centered */
+      box-sizing: border-box; /* Crucial: includes the 30px card padding inside the width */
     }
   }
 </style>
