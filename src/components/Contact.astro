@@ -22,90 +22,122 @@
 </section>
 
 <style>
+/* 1. Universal box-sizing reset for absolute boundary safety */
+.contact-section,
+.contact-container,
+.contact-grid,
+.contact-card,
+.contact-label,
+.contact-email {
+  box-sizing: border-box !important;
+}
+
+.contact-section {
+  width: 100%;
+  padding: 40px 20px;
+  background-color: #000000;
+  display: flex;
+  justify-content: center;
+  scroll-margin-top: 80px;
+}
+
+.contact-container {
+  max-width: 1200px;
+  width: 100%;
+  text-align: center;
+}
+
+.contact-header {
+  font-size: 36px;
+  color: white;
+  margin-bottom: 50px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.contact-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap; 
+  width: 100%;
+}
+
+.contact-card {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(215, 137, 65, 0.3); 
+  padding: 30px;
+  min-width: 280px;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact-card:hover {
+  background: rgba(215, 137, 65, 0.1);
+  transform: translateY(-5px);
+  border-color: #d78941;
+}
+
+.contact-label {
+  color: #d78941; 
+  font-weight: 900;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+}
+
+.contact-email {
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.contact-email em {
+  font-style: italic;
+}
+
+/* ==========================================
+   MOBILE RESPONSIVE OVERRIDES
+   ========================================== */
+@media (max-width: 768px) {
   .contact-section {
-    width: 100%;
-    padding: 40px 20px;
-    background-color: #000000;
-    display: flex;
-    justify-content: center;
-    scroll-margin-top: 80px;
+    padding: 40px 20px !important; 
   }
 
   .contact-container {
-    max-width: 1200px;
-    width: 100%;
-    text-align: center;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important; /* Locks layout boundaries down tightly */
   }
 
   .contact-header {
-    font-size: 36px;
-    color: white;
-    margin-bottom: 50px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    font-size: 28px !important; /* Marginally scales header down for better mobile ratios */
+    margin-bottom: 30px !important;
+    text-align: center !important;
+    width: 100% !important;
   }
 
   .contact-grid {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap; /* Allows cards to stack on mobile */
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 20px !important;        
+    width: 100% !important;
   }
-
+  
   .contact-card {
-    background: rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(215, 137, 65, 0.3); /* Subtle orange border */
-    padding: 30px;
-    min-width: 280px;
-    text-decoration: none;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .contact-card:hover {
-    background: rgba(215, 137, 65, 0.1);
-    transform: translateY(-5px);
-    border-color: #d78941;
-  }
-
-  .contact-label {
-    color: #d78941; /* The signature orange */
-    font-weight: 900;
-    font-size: 1.2rem;
-    letter-spacing: 1px;
+    min-width: 0 !important;       /* CRITICAL: Completely destroys the 280px cutoff rule */
+    width: 100% !important;        /* Smoothly takes up the remaining available width */
+    max-width: 340px !important;   /* Centers cleanly and keeps cards beautifully uniform */
+    padding: 20px 15px !important; /* Slightly slims card padding to give the email text max breathing room */
+    text-align: center !important;
   }
 
   .contact-email {
-    color: white;
-    font-weight: bold;
-    font-size: 1rem;
+    font-size: 0.95rem !important; /* Tiny adjustment to keep the email address on a single clean line */
+    word-break: break-all;         /* Safety net to prevent extra-long emails from splitting boundaries */
   }
-
-  .contact-email em {
-    font-style: italic;
-  }
-
-  @media (max-width: 768px) {
-    .contact-section {
-      padding: 40px 20px; /* Explicitly forces equal left/right padding on the screen edge */
-    }
-
-    .contact-grid {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px 0;        /* 20px gap between stacked cards, 0px gap on the sides */
-      width: 100%;
-    }
-    
-    .contact-card {
-      min-width: 0;       
-      width: 100%;        
-      max-width: 320px;   /* Limits width so they look crisp and centered */
-      box-sizing: border-box; /* Crucial: includes the 30px card padding inside the width */
-    }
-  }
+}
 </style>
