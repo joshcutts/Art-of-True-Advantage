@@ -30,64 +30,135 @@ style={{
 </section>
 
 <style>
+/* 1. Force absolute box-sizing safety across Astro's boundaries for this section */
+#author,
+.author-container,
+.author-content,
+.about-text,
+.author-photo,
+.about-text p {
+  box-sizing: border-box !important;
+}
+
+#author {
+  width: 100%;
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+  color: white;
+  scroll-margin-top: 80px;
+}
+
+.author-container {
+  max-width: 1000px;
+  width: 100%;
+}
+
+.author-content {
+  display: flex;
+  align-items: flex-start; 
+  gap: 40px; 
+  width: 100%;
+}
+
+.about-text {
+  flex: 1;
+  width: 100%;
+}
+
+.author-photo {
+  float: left; 
+  width: 165px; 
+  margin-right: 30px; 
+  margin-bottom: 15px; 
+  border: 2px solid rgba(255, 255, 255, 0.2); 
+}
+
+#author .about-text h1.author-title {
+  text-decoration: underline;
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: white !important;
+}
+
+.about-text h2 {
+  margin-bottom: 20px;
+  color: white;
+  font-size: 1.6rem;
+}
+
+.about-text p {
+  color: white;
+  line-height: 1.6;
+  margin-bottom: 1.5rem; 
+}
+
+/* ==========================================
+   MOBILE RESPONSIVE OVERRIDES
+   ========================================== */
+@media (max-width: 768px) {
   #author {
-    width: 100%;
-    padding: 60px 20px;
-    display: flex;
-    justify-content: center;
-    color: white;
-    scroll-margin-top: 80px;
+    padding: 40px 20px !important;
   }
 
-  /* Inner wrapper to keep content centered within the 1200px main */
+  /* 2. Strip desktop constraints and encapsulate mobile width */
   .author-container {
-    max-width: 1000px;
-    width: 100%;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important; 
   }
 
+  /* 3. Drop flex side-by-side behaviors and center container children */
   .author-content {
-    display: flex;
-    align-items: flex-start; /* Aligns photo with the top of the text */
-    gap: 40px; /* Space between photo and text */
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0 !important;
+    width: 100% !important;
   }
 
-  .author-photo {
-    float: left; /* This makes the text wrap around it */
-    width: 165px; /* Adjust size as needed */
-    margin-right: 30px; /* Space between image and text */
-    margin-bottom: 15px; /* Space below image */
-    
-    /* Styling to make it look less "hanging there" */
-    border: 2px solid rgba(255, 255, 255, 0.2); /* Subtle frame */
-    /* border-radius: 4px; Slight rounding */
-    /* box-shadow: 10px 10px 0px rgba(215, 137, 65, 0.5); An accent shadow using your orange color #d78941 */
-    }
+  /* 4. Force text wrapper block to be perfectly symmetrical */
+  .about-text {
+    flex: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important; /* Breaks any unwritten minimum desktop width thresholds */
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important; 
+  }
 
+  /* 5. Complete reset of photo margins to guarantee absolute centering */
+  .author-photo {
+    float: none !important;       /* Destroys layout wrap breaking right boundaries */
+    display: block !important;
+    margin: 0 auto 25px auto !important; /* Forces layout mathematical centering */
+    width: 180px !important;
+    max-width: 100% !important;
+  }
+
+  /* 6. Enforce centered typography scales */
   #author .about-text h1.author-title {
-      text-decoration: underline;
-      font-size: 2rem;
-      margin-bottom: 10px;
-      color: white !important;
+    font-size: 1.8rem !important;
+    text-align: center !important;
+    width: 100% !important;
+    margin-bottom: 8px !important;
   }
 
   .about-text h2 {
-    margin-bottom: 20px;
-    color: white;
-    font-size: 1.6rem;
+    font-size: 1.4rem !important;
+    text-align: center !important;
+    width: 100% !important;
+    margin-bottom: 25px !important;
   }
 
+  /* 7. Ensure left-aligned body text fits fully inside screen paddings */
   .about-text p {
-    color: white;
-    line-height: 1.6;
-    margin-bottom: 1.5rem; /* Replaces <br> for cleaner spacing */
+    text-align: left !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 1.2rem !important;
   }
-
-  /* Responsive adjustment for mobile */
-  @media (max-width: 768px) {
-    .author-content {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-  }
+}
 </style>
