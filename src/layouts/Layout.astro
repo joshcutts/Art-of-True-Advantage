@@ -1,15 +1,20 @@
+---
+// src/layouts/Layout.astro
+import BaseHead from '../components/Basehead.astro';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width" />
-  <meta name="generator" content={Astro.generator} />
-  <title>The Art of True Advantage</title>
-
-  <link rel="shortcut icon" href="/favicon.ico" sizes="any" />
-  
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-</head>
+		<BaseHead title={title} description={description} />
+	</head>
 	<body>
 		<slot />
 	</body>
@@ -28,6 +33,4 @@
     overflow-x: clip;
     min-height: 100vh;
   }
-
-
 </style>

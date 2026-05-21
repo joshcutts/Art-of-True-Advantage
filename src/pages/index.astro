@@ -9,12 +9,11 @@ import Review from '../components/Review.astro';
 import Contact from '../components/Contact.astro';
 import Copyright from '../components/Copyright.astro';
 
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const title="The Art of True Advantage" 
+const description = "Improve your mindset and elevate your results. Learn about 'The Art of True Advantage,' join the exclusive Launch Team, and discover how to shape the life you want.";
 ---
 
-<Layout>
+<Layout title={title} description={description}>
   <Navbar />
 	<Landing />
   <LaunchTeam />

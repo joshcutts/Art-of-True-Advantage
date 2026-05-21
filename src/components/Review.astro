@@ -62,12 +62,40 @@ import bg_praise from '../assets/bg_praise2.jpg'
 </section>
 
 <style>
-  .quotes {
+    .quotes {
+    /* Define the Astro background image token as a CSS variable */
+    --bg-image: url('../assets/bg_praise2.jpg'); /* Standard local fallback if needed, but Astro passes this cleanly */
+    
+    position: relative; /* Anchor the pseudo-element container */
     padding: 80px 20px;
     color: white;
     text-align: center;
     width: 100%;
     scroll-margin-top: 80px;
+    overflow: hidden; /* Critical: traps the blurry image bleed edges from escaping */
+    z-index: 1;
+  }
+
+  /* Create a dedicated background layer that handles the blur without affecting text or buttons */
+  .quotes::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    
+    /* Using dynamic Astro asset processing via CSS injection */
+    background: var(--bg-image) no-repeat center / cover fixed;
+    
+    /* Adjust this number to control the blur amount */
+    filter: blur(4px); 
+    
+    /* Scale slightly upward to hide visual artifacts/white halos on the section edges */
+    transform: scale(1.04); 
+    
+    /* Pushes the background layer safely behind all slider text/buttons */
+    z-index: -1; 
   }
 
   .praise_title {
@@ -97,7 +125,7 @@ import bg_praise from '../assets/bg_praise2.jpg'
   }
 
   .quote-card {
-    min-width: calc(50% - 10px); /* Shows 2 at a time on desktop */
+    min-width: calc(33.33% - 14px); /* Shows 2 at a time on desktop */
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(10px);
     padding: 40px;
@@ -152,18 +180,23 @@ import bg_praise from '../assets/bg_praise2.jpg'
     margin: 20px 0;
   }
 
-  @media (max-width: 768px) {
+  /* 2. Medium Screens (Laptops/Tablets): Drop down to 2 Cards */
+  @media (max-width: 1200px) {
     .quote-card {
-      min-width: 100%; /* Shows 1 at a time on mobile */
+      min-width: calc(50% - 10px); 
+      padding: 30px; /* Marginally trim padding to give text more breathing room */
     }
   }
 
+  /* 3. Mobile Screens: Drop down to 1 Card */
   @media (max-width: 768px) {
-  #reviews {
-    /* Disables the fixed effect on mobile for better compatibility */
-    background-attachment: scroll !important;
+    .quote-card {
+      min-width: 100%;
+    }
+    #reviews {
+      background-attachment: scroll !important;
+    }
   }
-}
 </style>
 
 <script>
@@ -174,8 +207,15 @@ import bg_praise from '../assets/bg_praise2.jpg'
   
   let index = 0;
   const totalCards = cards.length;
-  const visibleCards = window.innerWidth > 768 ? 2 : 1;
-  const maxIndex = totalCards - visibleCards;
+  
+  let visibleCards = 1; 
+  if (window.innerWidth > 1200) {
+    visibleCards = 3; // Large monitors get 3 columns
+  } else if (window.innerWidth > 768) {
+    visibleCards = 2; // Tablets and small laptops get 2 columns
+  } else {
+    visibleCards = 1; // Phones get 1 column
+  }  const maxIndex = totalCards - visibleCards;
 
   function updateSlider() {
     const cardWidth = cards[0].offsetWidth + 20; // width + gap
