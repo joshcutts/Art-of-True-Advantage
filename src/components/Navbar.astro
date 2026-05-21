@@ -1,8 +1,11 @@
+---
+import nav_logo from '../assets/nav_logo_edit.png'
+---
+
 <nav class="navbar">
   <div class="container">
     <a href="/" class="logo">
-      <span class="line-one"><em>ART</em> of TRUE</span>
-      <span class="line-two">ADVANTAGE</span>
+      <img src={nav_logo.src} id="nav-logo" alt="Join the Launch Team">
     </a>
 
     <div class="nav-wrapper">
@@ -61,23 +64,23 @@
   }
 
   .logo {
-    font-size: 1.4rem;
-    font-weight: 600;
-    text-decoration: none;
-    line-height: 1.1;
     display: flex;
-    flex-direction: column; /* Stacks the two lines of the logo */
-    align-items: flex-start;
-    letter-spacing: 0.05em; /* Helps with "Advantage" being a long word */
-    text-transform: uppercase;
-    color: #6b4423;
-    white-space: nowrap;
+    align-items: center;
+    text-decoration: none;
+    height: 100%
   }
 
-  .logo em {
-    font-style: italic;
-    margin-right: 0.2rem;
+  #nav-logo {
+    /* Height controls the physical scale in the navbar. 
+       45px to 55px is standard for modern web navs. Adjust this single value to size it up or down. */
+    height: 55px; 
+    
+    width: auto; /* Maintains original aspect ratio precisely to prevent distortion */
+    display: block;
+    object-fit: contain;
   }
+
+
 
   .line-one {
     font-size: 1.1rem;
