@@ -1,11 +1,7 @@
 ---
 import bg_praise from '../assets/bg_praise2.jpg'
 ---
-<section 
-  class="quotes" 
-  id="reviews" 
-  style={`background: url(${bg_praise.src}) no-repeat center / cover fixed;`}
->
+<section class="quotes" id="reviews">
   <div class="praise_title">Advanced Praise for: <span style="font-style:italic;">the ART of</span> TRUE ADVANTAGE</div>
   
   <div class="slider-container">
@@ -342,8 +338,6 @@ import bg_praise from '../assets/bg_praise2.jpg'
     color: #d78941;
   }
 
-  #reviews { background-attachment: scroll !important; }
-
   @media (max-width: 1200px) {
     .quote-card { min-width: calc(50% - 10px); }
   }
@@ -351,6 +345,10 @@ import bg_praise from '../assets/bg_praise2.jpg'
   /* --- MOBILE SPECIFIC CSS --- */
     /* --- MOBILE SPECIFIC CSS --- */
   @media (max-width: 768px) {
+    #reviews::before {
+      background-position-x: 85% !important; /* Forces the horizontal plane to shift right */
+    }
+
     .praise_title { font-size: 1.5rem; }
     
     .quote-card { 
