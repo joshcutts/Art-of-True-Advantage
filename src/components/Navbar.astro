@@ -55,12 +55,16 @@ import nav_logo from '../assets/nav_logo_final.png'
   }
 
   .container {
-    max-width: 1200px;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 4rem;
     align-items: center;
     padding: 0 3rem;
+  }
+
+  .nav-wrapper {
+    margin-left: auto;
   }
 
   .logo {
@@ -410,17 +414,32 @@ import nav_logo from '../assets/nav_logo_final.png'
   const menuToggle = document.getElementById('menu-toggle');
   const navLinks = document.querySelector('.nav-links');
   
-  menuToggle?.addEventListener('click', () => {
+  // Toggle menu open/close
+  menuToggle?.addEventListener('click', (e) => {
+    // Prevent the document listener from instantly catching this click
+    e.stopPropagation(); 
     navLinks?.classList.toggle('active');
     menuToggle.classList.toggle('is-active');
   });
 
+  // Close menu when clicking an individual link
   const individualLinks = document.querySelectorAll('.nav-links a');
-  
   individualLinks.forEach(link => {
     link.addEventListener('click', () => {
       navLinks?.classList.remove('active');
-      menuToggle?.classList.remove('is-active'); // Resets the hamburger icon animation if you use it
+      menuToggle?.classList.remove('is-active');
     });
+  });
+
+  // NEW: Close menu when clicking anywhere outside the navbar dropdown
+  document.addEventListener('click', (event) => {
+    const isMenuOpen = navLinks?.classList.contains('active');
+    
+    // If the menu is open, and the click target is NOT the menu toggle button, 
+    // and NOT inside the dropdown links themselves, close it.
+    if (isMenuOpen && !menuToggle?.contains(event.target as Node) && !navLinks?.contains(event.target as Node)) {
+      navLinks?.classList.remove('active');
+      menuToggle?.classList.remove('is-active');
+    }
   });
 </script>
