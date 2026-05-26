@@ -107,7 +107,8 @@ import bg_praise from '../assets/bg_praise2.jpg'
   .quotes {
     --bg-image: url('../assets/bg_praise2.jpg');
     position: relative;
-    padding: 80px 20px;
+    padding: 100px 20px;
+    min-height: 90vh;
     color: white;
     text-align: center;
     width: 100%;
@@ -115,21 +116,24 @@ import bg_praise from '../assets/bg_praise2.jpg'
     scroll-margin-top: 80px;
     overflow: hidden;
     z-index: 1;
+    /* RE-ENABLED: Restores standard desktop parallax background layer */
+    background: var(--bg-image) no-repeat center 10% / cover fixed;
   }
 
   .quotes::before {
     content: "";
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: var(--bg-image) no-repeat center / cover fixed;
+    /* FIX: Set Y-axis to 20% to nudge the frame down and prevent chopping heads */
+    background: var(--bg-image) no-repeat center 35% / cover fixed;
     filter: blur(4px); 
-    transform: scale(1.04); 
+    /* transform: scale(1.04);  */
     z-index: -1; 
   }
 
   .praise_title {
-    font-size: 2rem;
-    margin-bottom: 40px;
+    font-size: 2.2rem;
+    margin-bottom: 60px;
     font-weight: bold;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     word-wrap: break-word; 
@@ -162,6 +166,7 @@ import bg_praise from '../assets/bg_praise2.jpg'
 
   .quote-card {
     min-width: calc(33.33% - 14px);
+    min-height: 480px;
     background: rgba(0, 0, 0, 0.6); 
     backdrop-filter: blur(10px);
     padding: 40px;
@@ -186,7 +191,7 @@ import bg_praise from '../assets/bg_praise2.jpg'
     line-height: 1.6;
     font-style: italic;
     display: -webkit-box;
-    -webkit-line-clamp: 6; 
+    -webkit-line-clamp: 9; 
     -webkit-box-orient: vertical;
     overflow: hidden;
     margin-bottom: 10px;
@@ -343,17 +348,33 @@ import bg_praise from '../assets/bg_praise2.jpg'
   }
 
   /* --- MOBILE SPECIFIC CSS --- */
-    /* --- MOBILE SPECIFIC CSS --- */
   @media (max-width: 768px) {
+    /* MOBILE FIX: Syncs layout, locks background shift, disables parallax on tiny viewports */
     #reviews::before {
-      background-position-x: 85% !important; /* Forces the horizontal plane to shift right */
+      background-size: auto 115% !important;
+      background-position: 60% 60% !important; 
+      background-attachment: scroll !important; /* Forces scroll processing to avoid rendering errors on iOS/Android */
     }
 
-    .praise_title { font-size: 1.5rem; }
+    .quotes {
+      min-height: auto !important; /* Allows content to define height on mobile */;
+      padding: 60px 15px;
+    }
+
+    .clamped-quote {
+      -webkit-line-clamp: 7 !important; /* Forces a maximum of 6 lines on mobile */
+    }
+
+    .praise_title {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+    }
     
     .quote-card { 
       min-width: 100%; 
-      padding: 30px 20px; 
+      min-height: 0 !important;
+      height: auto !important;
+      padding: 24px 20px; 
     }
     
     .nav-btn {
@@ -365,36 +386,33 @@ import bg_praise from '../assets/bg_praise2.jpg'
 
     .modal-content-wrapper {
       width: 92%;
-      /* Reset to normal padding */
       padding: 45px 15px 20px 15px; 
       max-height: 65vh; 
-      box-sizing: border-box; /* Keeps the X strictly on the screen */
+      box-sizing: border-box; 
     }
     
-    /* FIX: Use CSS Grid to give text and buttons their own strict zones */
     .modal-nav-container { 
       display: grid; 
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr auto; /* Text gets flexible top, buttons get fixed bottom */
+      grid-template-rows: 1fr auto; 
       gap: 15px;
-      min-height: 0; /* Critical so the text still scrolls */
+      min-height: 0; 
     }
     
     .modal-body { 
-      grid-column: 1 / -1; /* Spans all the way across */
-      grid-row: 1; /* Sits in the top row */
+      grid-column: 1 / -1; 
+      grid-row: 1; 
       margin-top: 5px; 
       padding-right: 5px; 
     }
     
-    /* Buttons are placed cleanly side-by-side below the text */
     .nav-btn.modal-arrow { 
       display: flex; 
-      position: static; /* Turns off the floating behavior */
+      position: static; 
       margin: 0;
       width: 45px;
       height: 45px;
-      justify-self: center; /* Centers each button in its half of the screen */
+      justify-self: center; 
     }
 
     #modalPrev { grid-column: 1; grid-row: 2; }
@@ -509,5 +527,14 @@ import bg_praise from '../assets/bg_praise2.jpg'
     if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
     if (e.key === 'ArrowRight' && modal.classList.contains('active')) modalNext.click();
     if (e.key === 'ArrowLeft' && modal.classList.contains('active')) modalPrev.click();
+  });
+
+  document.querySelectorAll('nav a, .nav-link, [href^="#"]').forEach(link => {
+    link.addEventListener('click', () => {
+      // Check if the modal is currently open before closing
+      if (modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
   });
 </script>

@@ -50,6 +50,17 @@ import Countdown from '../components/Countdown.astro'
     justify-content: center;
   }
 
+  /* Target tablets and laptops (like the MacBook Air) */
+  @media (min-width: 768px) and (max-height: 900px) {
+    #landing {
+      gap: 1rem;
+    }
+    .image-wrapper {
+      max-width: 220px;
+    }
+  }
+
+
   @media (max-width: 480px) {
     #landing {
       padding: 1.5rem 1rem;
