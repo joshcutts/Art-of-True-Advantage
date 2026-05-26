@@ -1,46 +1,81 @@
 ---
+import { Image } from 'astro:assets';
 import bookcover from '../assets/book_cover.jpg'
 import Countdown from '../components/Countdown.astro'
 ---
 
 <section id="landing">
+  <h1 class="visually-hidden">The Art of True Advantage - Launching June 8, 2026</h1>
+  
   <div class="image-wrapper">
-    <img src={bookcover.src} class="outline" alt="the ART of TRUE ADVANTAGE" />
+    <Image 
+      src={bookcover} 
+      class="outline" 
+      alt="the ART of TRUE ADVANTAGE" 
+      loading="eager"
+    />
+    <!-- <img src={bookcover.src} class="outline" alt="the ART of TRUE ADVANTAGE" /> -->
   </div>
-  <Countdown deadline="2026-06-08T00:00:00-07:00" />
+
+  <div class="content-bundle">
+    <Countdown deadline="2026-06-08T00:00:00-07:00" />
+    
+    <div class="cta-buttons">
+      <a href="https://www.amazon.com/dp/B0H195XGG1" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Pre-order on Kindle</a>
+      <div class="disabled-wrapper">
+        <span class="btn btn-disabled" aria-disabled="true">Paperback Coming Soon</span>
+      </div>
+    </div>
+  </div>
 </section>
 
 <style>
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .outline {
   width: 100%;
   border: 1px solid;
+  height: auto;
   /* Creates a gradient from your orange to a darker version */
   border-image-source: linear-gradient(135deg, #d78941, #8e5a2b);
   border-image-slice: 1;
   box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
 
-  .launch-team {
-    display: flex;
-    justify-content: center;
-  }
+.launch-team {
+  display: flex;
+  justify-content: center;
+}
 
-	main {
-		width: 100%;
-    max-width: 1200px;
-		display: flex;
-		justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-	}
+main {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
 
 	#landing {
-		display: flex;
-		align-items: center;
-		flex-direction: column;
-		justify-content: center;
-		padding: 16px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    gap: .5rem;
+    padding: 1rem 1rem;
+    width: 100%;
+    box-sizing: border-box;
 	}
 
   .image-wrapper {
@@ -50,27 +85,115 @@ import Countdown from '../components/Countdown.astro'
     justify-content: center;
   }
 
+  .content-bundle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min-content; 
+    min-width: 600px; /* Ensures a spacious minimum track for "Paperback Coming Soon" on one line */
+  }
+
+  .cta-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 0.85rem;
+    align-items: center;
+    width: 100%;
+    max-width: 600px; /* Snug wrapper so buttons don't stretch excessively */
+  }
+
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.95rem 1.5rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 4px;
+    box-sizing: border-box;
+    white-space: nowrap; /* Forces "Paperback Coming Soon" to sit crisply on one horizontal string */
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Active Kindle Button */
+  .btn-primary {
+    background: #d78941;
+    color: #f8f3df;
+    border: 1px solid #d78941;
+    box-shadow: 0 4px 12px rgba(215, 137, 65, 0.2);
+  }
+
+  .btn-primary:hover {
+    background: #c37633;
+    border-color: #c37633;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(215, 137, 65, 0.35);
+  }
+
+  .btn-primary:active {
+    transform: translateY(-0.5px);
+  }
+
+  /* Disabled Elegant Paperback Button */
+  .disabled-wrapper {
+    width: 100%;
+    position: relative;
+    cursor: not-allowed;
+  }
+
+  .btn-disabled {
+    background: rgba(107, 68, 35, 0.03);
+    color: #6b4423;
+    border: 1px dashed rgba(107, 68, 35, 0.35);
+    opacity: 0.5;
+    pointer-events: none; /* Block actions */
+    user-select: none;
+  }
+
   /* Target tablets and laptops (like the MacBook Air) */
   @media (min-width: 768px) and (max-height: 900px) {
     #landing {
       gap: 1rem;
     }
     .image-wrapper {
-      max-width: 220px;
+      max-width: 300px;
     }
   }
 
-
-  @media (max-width: 480px) {
-    #landing {
-      padding: 1.5rem 1rem;
-      gap: 1.5rem; /* Tightens the gap so the timer pulls up higher */
-    }
-    
-    .image-wrapper {
-      max-width: 180px; /* Scales the book cover down on small mobile phones */
-    }
+/* Mobile Adjustments */
+@media (max-width: 480px) {
+  #landing {
+    padding: 1.5rem 1rem;
+    gap: 1.25rem;
   }
+
+  .image-wrapper {
+    max-width: 180px;
+  }
+
+  /* Drop min-width bounds on small touch viewports to allow responsive fluid scaling */
+  .content-bundle {
+    width: 100%;
+    min-width: 0;
+    max-width: 290px;
+  }
+
+  /* Transition buttons from an expansive horizontal row into an easy-to-tap vertical stack */
+  .cta-buttons {
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  
+  .btn {
+    padding: 0.85rem 1.25rem;
+    font-size: 0.8rem;
+    white-space: normal; /* Permits safe string breakwrap if the mobile browser is exceptionally narrow */
+  }
+}
 </style>
 
 

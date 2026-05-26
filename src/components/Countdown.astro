@@ -119,14 +119,14 @@ const { deadline, title = "Launch in..." } = Astro.props;
   .timer {
     display: flex;
     justify-content: center;
-    gap: 3rem; /* More gap makes it feel "premium" */
+    gap: clamp(1rem, 6vw, 3rem);
   }
 
   .value {
-    font-size: 3.5rem; /* Large, clean numbers */
+    font-size: 3.5rem;
     line-height: 1;
     font-weight: 900;
-    color: #6b4423; /* Darker color for numbers so they anchor the page */
+    color: #6b4423;
     font-family: "Playfair Display", serif;
   }
 
@@ -138,5 +138,85 @@ const { deadline, title = "Launch in..." } = Astro.props;
     opacity: 0.5;
     letter-spacing: 0.15em;
     text-transform: uppercase;
+  }
+
+    /* Target tablets and laptops (like the MacBook Air) */
+  @media (min-width: 768px) and (max-height: 900px) {
+    .countdown-container {
+      padding: 0.75rem 0; /* Compress vertical footprint */
+    }
+
+    .announcement {
+      margin-bottom: 0.75rem;
+    }
+
+    .announce-bottom {
+      font-size: 2.2rem; /* Scaled down smoothly from 3rem */
+    }
+
+    .divider {
+      margin: 0.75rem auto;
+    }
+
+    h2 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .timer {
+      gap: 2rem; /* Pull elements together slightly closer horizontally */
+    }
+
+    .value {
+      font-size: 2.6rem; /* Scaled down smoothly from 3.5rem */
+    }
+
+    .label {
+      font-size: 0.65rem;
+      margin-top: 4px;
+    }
+  }
+
+  /* Keep your existing @media (max-width: 480px) query exactly as it is below this line */
+
+  @media (max-width: 480px) {
+    .countdown-container {
+      padding: 0.5rem 0; /* Compact container tracking to save screen height */
+    }
+
+    .announcement {
+      margin-bottom: 0.75rem; /* Tightens space between date and micro-divider */
+    }
+
+    .announce-top {
+      font-size: 0.7rem; /* Marginally smaller sub-context label */
+      letter-spacing: 0.3em;
+    }
+
+    .announce-bottom {
+      font-size: 1.8rem; /* Dropped from 2rem to balance nicely above smaller timer numbers */
+    }
+
+    .divider {
+      margin: 0.75rem auto; /* Minimizes negative spacing gap around line breaker */
+    }
+
+    h2 {
+      font-size: 0.9rem; /* Scales "Launch in..." subtitle tracking cleanly */
+      margin-bottom: 0.5rem;
+    }
+
+    .timer {
+      gap: 2rem; /* Clamps fixed row spacing snugly for small mobile grids */
+    }
+
+    .value {
+      font-size: 2.2rem; /* Dropped down from 2.5rem to guarantee full 100% viewport safety */
+    }
+
+    .label {
+      font-size: 0.6rem; /* Micro labels scale perfectly proportional to values */
+      margin-top: 4px;
+    }
   }
 </style>
