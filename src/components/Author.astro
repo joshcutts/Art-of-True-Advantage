@@ -239,14 +239,26 @@ style={{
   .author-header-striking {
     margin-bottom: 20px !important;
     padding: 0 5px !important;
+    flex-wrap: nowrap !important;
+    width:100%;
+
   }
 
   .author-header-striking h2.author-title {
     font-size: 1.5rem !important; /* Unified mobile heading scale */
     letter-spacing: 0.15em !important;
-    white-space: normal !important; 
+    white-space: nowrap !important; 
     word-wrap: break-word !important;
     text-align: center !important;
+    flex: 0 1 auto !important;
+  }
+
+  .author-header-striking::before,
+  .author-header-striking::after {
+    display: block !important;
+    background-color: #d78941;
+    min-width: 20px !important;
+    flex: 1 0 300px !important;
   }
 
   .author-header-striking::before { margin-right: 15px !important; }

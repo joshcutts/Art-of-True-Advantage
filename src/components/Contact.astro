@@ -1,6 +1,9 @@
 <section id="contact" class="contact-section">
   <div class="contact-container">
-    <h2 class="contact-header">Contact</h2>
+    
+    <div class="contact-header-striking">
+      <h2 class="contact-title">Contact</h2>
+    </div>
     
     <div class="contact-grid">
       <a href="mailto:media@artoftrueadvantage.com" class="contact-card">
@@ -34,7 +37,7 @@
 
 .contact-section {
   width: 100%;
-  padding: 40px 20px;
+  padding: 60px 20px; /* Matched to Author section vertical padding */
   background-color: #000000;
   display: flex;
   justify-content: center;
@@ -42,19 +45,63 @@
 }
 
 .contact-container {
-  max-width: 1200px;
+  max-width: 1000px; /* Matched to Author container width */
   width: 100%;
   text-align: center;
 }
 
-.contact-header {
-  font-size: 36px;
-  color: white;
-  margin-bottom: 50px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+/* ==========================================
+   UNIFIED CONTACT STRIKING HEADER STYLES
+   ========================================== */
+.contact-header-striking {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important; 
+  justify-content: center !important;
+  width: 100% !important;
+  margin: 0 0 45px 0 !important; /* Slightly more room down to the grid items */
 }
 
+.contact-header-striking h2.contact-title {
+  font-family: "Inter", "Helvetica Neue", sans-serif !important;
+  font-size: 2rem !important; /* Matched identically to Author title */
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.2em !important; 
+  color: #ffffff !important; 
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  white-space: nowrap !important; 
+  border: none !important;
+  background: transparent !important;
+  text-decoration: none !important;
+}
+
+/* Pseudo-elements handle the horizontal tracks seamlessly */
+.contact-header-striking::before,
+.contact-header-striking::after {
+  content: "" !important;
+  display: block !important;
+  flex: 1 !important; 
+  height: 1px !important; 
+  min-height: 1px !important;
+  background-color: #d78941 !important; /* Muted amber accent line */
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.contact-header-striking::before {
+  margin-right: 30px !important;
+}
+
+.contact-header-striking::after {
+  margin-left: 30px !important;
+}
+
+/* ==========================================
+   GRID & CARD STYLES
+   ========================================== */
 .contact-grid {
   display: flex;
   justify-content: center;
@@ -64,35 +111,43 @@
 }
 
 .contact-card {
-  background: rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(215, 137, 65, 0.3); 
+  background: rgba(255, 255, 255, 0.02); /* Cleaned dark transparency */
+  border: 1px solid rgba(255, 255, 255, 0.15); /* Sleek, structural border matching photo subtle lines */
   padding: 30px;
   min-width: 280px;
+  flex: 1; /* Allows them to distribute horizontally beautifully */
+  max-width: 310px;
   text-decoration: none;
   border-radius: 4px;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
 .contact-card:hover {
-  background: rgba(215, 137, 65, 0.1);
-  transform: translateY(-5px);
+  background: rgba(215, 137, 65, 0.08);
+  transform: translateY(-4px);
   border-color: #d78941;
 }
 
 .contact-label {
   color: #d78941; 
-  font-weight: 900;
-  font-size: 1.2rem;
-  letter-spacing: 1px;
+  font-family: "Inter", "Helvetica Neue", sans-serif;
+  font-weight: 800;
+  font-size: 0.9rem; /* Cleaned up tag footprint */
+  letter-spacing: 0.15em;
 }
 
 .contact-email {
-  color: white;
-  font-weight: bold;
-  font-size: 1rem;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+}
+
+.contact-card:hover .contact-email {
+  color: #ffffff;
 }
 
 .contact-email em {
@@ -110,15 +165,37 @@
   .contact-container {
     width: 100% !important;
     max-width: 100% !important;
-    overflow: hidden !important; /* Locks layout boundaries down tightly */
+    overflow: hidden !important; 
   }
 
-  .contact-header {
-    font-size: 28px !important; /* Marginally scales header down for better mobile ratios */
+  .contact-header-striking {
     margin-bottom: 30px !important;
-    text-align: center !important;
+    padding: 0 5px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
     width: 100% !important;
   }
+
+  .contact-header-striking h2.contact-title {
+    font-size: 1.5rem !important; /* Unified mobile heading scale precisely */
+    letter-spacing: 0.15em !important;
+    white-space: nowrap !important; 
+    text-align: center !important;
+    flex: 0 1 auto !important;
+  }
+
+  /* BULLETPROOF FLEX FIXES FOR THE PSEUDO TRACKS */
+  .contact-header-striking::before,
+  .contact-header-striking::after {
+    display: inline-block !important;
+    background-color: #d78941 !important;
+    min-width: 20px !important;
+    flex: 1 0 30px !important; 
+  }
+
+  .contact-header-striking::before { margin-right: 15px !important; }
+  .contact-header-striking::after { margin-left: 15px !important; }
 
   .contact-grid {
     flex-direction: column !important;
@@ -128,16 +205,17 @@
   }
   
   .contact-card {
-    min-width: 0 !important;       /* CRITICAL: Completely destroys the 280px cutoff rule */
-    width: 100% !important;        /* Smoothly takes up the remaining available width */
-    max-width: 340px !important;   /* Centers cleanly and keeps cards beautifully uniform */
-    padding: 20px 15px !important; /* Slightly slims card padding to give the email text max breathing room */
+    min-width: 0 !important;       
+    width: 100% !important;        
+    max-width: 340px !important;   
+    padding: 20px 15px !important; 
     text-align: center !important;
+    flex: none !important;
   }
 
   .contact-email {
-    font-size: 0.95rem !important; /* Tiny adjustment to keep the email address on a single clean line */
-    word-break: break-all;         /* Safety net to prevent extra-long emails from splitting boundaries */
+    font-size: 0.9rem !important; 
+    word-break: break-all;         
   }
 }
 </style>
