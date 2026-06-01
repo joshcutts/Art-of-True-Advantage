@@ -1,8 +1,13 @@
 ---
 import bg_praise from '../assets/bg_praise2.jpg'
+
+import { getImage } from 'astro:assets'
+const optimizedBg = await getImage({ src: bg_praise, format: 'webp', quality: 80 })
 ---
-<section class="quotes" id="reviews">
-  <div class="praise_title">Advanced Praise for: <span style="font-style:italic;">the ART of</span> TRUE ADVANTAGE</div>
+
+<section class="quotes" id="reviews" style={`--bg-image: url(${optimizedBg.src});`}>
+  
+  <h2 class="praise_title">Reviews</h2>
   
   <div class="slider-container">
     <button class="nav-btn prev" id="prevBtn">❮</button>
@@ -105,7 +110,6 @@ import bg_praise from '../assets/bg_praise2.jpg'
 
 <style>
   .quotes {
-    --bg-image: url('../assets/bg_praise2.jpg');
     position: relative;
     padding: 100px 20px;
     min-height: 90vh;
@@ -116,7 +120,6 @@ import bg_praise from '../assets/bg_praise2.jpg'
     scroll-margin-top: 80px;
     overflow: hidden;
     z-index: 1;
-    /* RE-ENABLED: Restores standard desktop parallax background layer */
     background: var(--bg-image) no-repeat center 10% / cover fixed;
   }
 
@@ -124,19 +127,55 @@ import bg_praise from '../assets/bg_praise2.jpg'
     content: "";
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    /* FIX: Set Y-axis to 20% to nudge the frame down and prevent chopping heads */
     background: var(--bg-image) no-repeat center 35% / cover fixed;
     filter: blur(4px); 
-    /* transform: scale(1.04);  */
     z-index: -1; 
   }
 
-  .praise_title {
-    font-size: 2.2rem;
-    margin-bottom: 60px;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-    word-wrap: break-word; 
+  /* ==========================================
+     UNIFIED STRIKING HEADING REFACTOR
+     ========================================== */
+  h2.praise_title {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important; 
+    justify-content: center !important;
+    width: 100% !important;
+    max-width: 1200px !important; 
+    margin: 0 auto 50px auto !important; 
+    padding: 0 !important;
+    line-height: 1 !important;
+
+    font-family: "Inter", "Helvetica Neue", sans-serif !important;
+    font-size: 2.2rem !important; 
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.2em !important; 
+    color: #ffffff !important; 
+    white-space: nowrap !important;
+    border: none !important;
+    background: transparent !important;
+  }
+
+  /* Thin line tracks stretching 100% edge-to-edge seamlessly */
+  h2.praise_title::before,
+  h2.praise_title::after {
+    content: "" !important;
+    display: block !important;
+    flex: 1 !important; 
+    height: 1px !important; 
+    min-height: 1px !important;
+    background-color: #000000 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  h2.praise_title::before {
+    margin-right: 30px !important;
+  }
+
+  h2.praise_title::after {
+    margin-left: 30px !important;
   }
 
   .slider-container {
@@ -249,7 +288,6 @@ import bg_praise from '../assets/bg_praise2.jpg'
     margin: 20px 0;
   }
 
-  /* MODAL STYLES */
   .modal-overlay {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -262,6 +300,7 @@ import bg_praise from '../assets/bg_praise2.jpg'
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
+    padding: 20px;
   }
 
   .modal-overlay.active {
@@ -273,38 +312,44 @@ import bg_praise from '../assets/bg_praise2.jpg'
     position: relative;
     width: 90%;
     max-width: 900px;
-    max-height: 70vh; 
+    max-height: 75vh; 
     display: flex;
     flex-direction: column; 
     background: #111;
     border: 1px solid #d78941;
     border-radius: 12px;
-    padding: 40px 20px 20px 20px;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+    padding: 50px 25px 25px 25px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    box-sizing: border-box;
+    overflow: hidden; 
   }
 
   .modal-nav-container {
     display: flex;
-    align-items: stretch; 
+    align-items: center; 
     justify-content: space-between;
     gap: 20px;
-    flex-grow: 1;
-    min-height: 0; 
+    width: 100%;
+    height: auto;
+    min-height: 0;
   }
 
   .nav-btn.modal-arrow {
     align-self: center;
+    flex-shrink: 0;
   }
 
   .modal-body {
     flex-grow: 1;
     overflow-y: auto; 
     min-height: 0; 
+    max-height: calc(75vh - 100px); 
     text-align: left;
     color: #fff;
     line-height: 1.6;
     font-size: 1.1rem;
-    padding: 0 15px 15px 0; 
+    padding-right: 15px; 
+    box-sizing: border-box;
   }
 
   .modal-body::-webkit-scrollbar {
@@ -328,7 +373,7 @@ import bg_praise from '../assets/bg_praise2.jpg'
 
   .modal-close {
     position: absolute;
-    top: 10px;
+    top: 12px;
     right: 15px;
     background: none;
     border: none;
@@ -347,28 +392,32 @@ import bg_praise from '../assets/bg_praise2.jpg'
     .quote-card { min-width: calc(50% - 10px); }
   }
 
-  /* --- MOBILE SPECIFIC CSS --- */
+  /* --- MOBILE CONSTRAINTS --- */
   @media (max-width: 768px) {
-    /* MOBILE FIX: Syncs layout, locks background shift, disables parallax on tiny viewports */
     #reviews::before {
       background-size: auto 115% !important;
       background-position: 60% 60% !important; 
-      background-attachment: scroll !important; /* Forces scroll processing to avoid rendering errors on iOS/Android */
+      background-attachment: scroll !important; 
     }
 
     .quotes {
-      min-height: auto !important; /* Allows content to define height on mobile */;
+      min-height: auto !important; 
       padding: 60px 15px;
     }
 
     .clamped-quote {
-      -webkit-line-clamp: 7 !important; /* Forces a maximum of 6 lines on mobile */
+      -webkit-line-clamp: 7 !important; 
     }
 
-    .praise_title {
-      font-size: 1.5rem;
-      margin-bottom: 30px;
+    h2.praise_title {
+      font-size: 1.5rem !important; 
+      letter-spacing: 0.15em !important;
+      margin-bottom: 30px !important;
+      white-space: normal !important; 
+      word-wrap: break-word !important;
     }
+    h2.praise_title::before { margin-right: 15px !important; }
+    h2.praise_title::after { margin-left: 15px !important; }
     
     .quote-card { 
       min-width: 100%; 
@@ -404,6 +453,7 @@ import bg_praise from '../assets/bg_praise2.jpg'
       grid-row: 1; 
       margin-top: 5px; 
       padding-right: 5px; 
+      max-height: calc(65vh - 120px); 
     }
     
     .nav-btn.modal-arrow { 
@@ -471,11 +521,7 @@ import bg_praise from '../assets/bg_praise2.jpg'
     
     `“There are books that inform, and there are books that shape the way you operate. The Art of True Advantage falls decisively into the latter.<br><br>In many ways, the author carries forward a tradition that traces back to ancient thinkers, individuals who understood that the foundation of external success is internal discipline. What Boyer has done, however, is something distinctly modern: he has organized those enduring principles into a practical, sequential system that can be applied in real time. That sequential structure is what makes this book exceptional.<br><br>This is not a book to be read once and placed on a shelf. It is something to return to often. The concepts are designed to be applied in the middle of real decisions, real conversations, and real pressure. Over time, they compound. And when they compound, they change not just outcomes, but identity.<br><br>From a leadership &amp; relationship perspective, this is where the real value emerges. Too often, leadership is framed externally in terms of strategy, communication and execution. This book begins where it should, with the individual, my state, my attention, my responsibility. These are not soft ideas; they are the foundation of consistent and incremental performance.<br><br>For anyone building a business or relationships, leading a team, or simply trying to function at a higher level of intention, this framework provides a clear path. It removes noise. It replaces complexity with discipline.<br><br>Ultimately, The Art of True Advantage is not about gaining an edge in a single area. It is about becoming the kind of person who consistently creates advantage in all aspects of life, across situations, over time, and under pressure, thereby strengthening self and subsequently, those around you.”<br><br><span class="author-name">Bryan Welton</span><br><span class="author-title">Founder, Investor &amp; Entrepreneur</span>`,
     
-    `“This book feels less like something you read and more like something you experience, quietly, deeply, and in ways that linger long after you’ve turned the final page.<br><br>It doesn’t overwhelm you with complicated theories or abstract philosophies. Instead, it walks beside you, step by step, offering simple, clear guidance on how to live a fuller, kinder, more meaningful life. And somehow, in its simplicity, it becomes profound.<br><br>Every idea is grounded in everyday moments, the kind we all recognize but rarely pause to learn from.<br><br>By the end, you don’t feel like you’ve been instructed, you feel like you understand something new. You feel capable. You feel hopeful. There’s a softness to that realization, a kind of emotional clarity that sneaks up on you. After reading it, you walk away feeling just a little lighter, a little stronger, and a lot more ready to live your life fully and wholeheartedly.”<br><br><span class="author-name">Paul Terrell</span><br><span class="author-title">Adjunct Professor Portland State University</span>`,
-    
-    `“Christopher Boyer has created a compendium of valuable lessons available to all of us based on his lifetime devotion to the betterment of humanity. He has amplified the intellectual and behavioral skills of martial arts reflected in outcomes of respect and resilience. This material is both informational and instructional and presented in an easy to understand manner.”<br><br><span class="author-name">Edward L. Brewington</span><br><span class="author-title">Retired Senior VP, Educator, Black Belt</span>`,
-    
-    `“What this book does well is close the gap between intention and action. It forces an honest look at distraction, misplaced emotion, and avoidance. Then it offers a path forward. Pay attention to what matters. Act on it consistently. That is not just productivity. That is stewardship of what you have been given.<br><br>This is not about motivation. It is about rightly ordered vision. When attention and intention line up with reality, things change.<br><br>This is not a book you can hide in. It removes the easy outs and puts responsibility back where it belongs. Advantage is not something you find. It is something you build through attention, intention, and action. That kind of clarity feels a lot like an honest examen. No excuses. Just truth.”<br><br><span class="author-name">Gary Hanifan</span><br><span class="author-title">Former Senior Managing Director Accenture Strategy</span>`
+    `...`
   ];
 
   const modal = document.getElementById('quoteModal');
@@ -531,7 +577,6 @@ import bg_praise from '../assets/bg_praise2.jpg'
 
   document.querySelectorAll('nav a, .nav-link, [href^="#"]').forEach(link => {
     link.addEventListener('click', () => {
-      // Check if the modal is currently open before closing
       if (modal.classList.contains('active')) {
         closeModal();
       }

@@ -1,12 +1,15 @@
 ---
+import { Image, getImage } from 'astro:assets'
 import christopher_boyer from '../assets/Christopher_Boyer.jpg'
 import background from '../assets/background.jpg'
+
+const optimizedBg = await getImage({ src: background, format: 'webp', quality: 75 })
 ---
 
 <section 
 id="author" 
 style={{ 
-  background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${background.src})`,
+  background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${optimizedBg.src})`,
   backgroundSize: 'cover', 
   backgroundPosition: 'center',
   width: '100%' 
@@ -14,11 +17,19 @@ style={{
   <div class="author-container">
     <div class="author-content">
       
-      
       <div class="about-text">
-        <h1 class="author-title">About the Author</h1>
+        <div class="author-header-striking">
+          <h2 class="author-title">About the Author</h2>
+        </div>
+        
         <h2>Christopher Boyer</h2>
-        <img src={christopher_boyer.src} class="author-photo" alt="author portrait">
+        
+        <Image 
+          src={christopher_boyer} 
+          class="author-photo" 
+          alt="author portrait"
+        />
+        
         <p>I have always been interested in the intersection of human performance, perspective, and functional philosophy. My experience in martial arts has taught me that there are very real common denominators to functional performance. The more calm and composed an individual is, the greater chance they have of remaining intentional, executing well, and driving the results they want.</p>
         <p>Mindset matters. The way we see the world, and the moment in front of us, determines how we respond to it. The more functional the mindset, the more effective the responses. Functional mindsets can be developed by anyone willing to put the time, attention, and effort into the practice.</p>
         <p>My wife and I have taught countless students from all walks of life to be more strong, secure, and functional over the last 36 years. I have gone on to teach executives and teams best practices for optimal outcomes. Most recently, I have the privilege of overseeing and teaching elements from the Art of True Advantage to professionals in Leadership Lake Oswego, one of our community’s longest standing leadership programs.</p>
@@ -26,6 +37,10 @@ style={{
         <p>Here is to helping individuals and organizations generate better outcomes through the adoption of better perspectives and practices. The more resilient we become individually and collectively, the more we give voice to our deeper values and the more true advantage we create for everyone.</p>
       </div>
     </div>
+  </div>
+
+  <div class="author-footer">
+    <div class="tagline-striking">Perspective Shapes Performance</div>
   </div>
 </section>
 
@@ -42,8 +57,11 @@ style={{
 
 #author {
   width: 100%;
+  height: auto;
   padding: 60px 20px;
   display: flex;
+  flex-direction: column; 
+  align-items: center;    
   justify-content: center;
   color: white;
   scroll-margin-top: 80px;
@@ -66,25 +84,71 @@ style={{
   width: 100%;
 }
 
+/* ==========================================
+   UNIFIED AUTHOR STRIKING HEADER STYLES
+   ========================================== */
+.author-header-striking {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important; /* Forces lines to stay dead-centered horizontally */
+  justify-content: center !important;
+  width: 100% !important;
+  margin: 0 0 25px 0 !important; 
+}
+
+.author-header-striking h2.author-title {
+  font-family: "Inter", "Helvetica Neue", sans-serif !important;
+  font-size: 2rem !important; /* Scaled up to match Launch Team heading proportion perfectly */
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.2em !important; 
+  color: #ffffff !important; 
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  white-space: nowrap !important; 
+  border: none !important;
+  background: transparent !important;
+  text-decoration: none !important;
+}
+
+/* Pseudo-elements handle the horizontal tracks seamlessly without layout shifts */
+.author-header-striking::before,
+.author-header-striking::after {
+  content: "" !important;
+  display: block !important;
+  flex: 1 !important; 
+  height: 1px !important; 
+  min-height: 1px !important;
+  background-color: #d78941 !important; /* Unified muted amber accent line */
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.author-header-striking::before {
+  margin-right: 30px !important;
+}
+
+.author-header-striking::after {
+  margin-left: 30px !important;
+}
+
 .author-photo {
   float: left; 
   width: 165px; 
+  height: auto; 
   margin-right: 30px; 
   margin-bottom: 15px; 
   border: 2px solid rgba(255, 255, 255, 0.2); 
 }
 
-#author .about-text h1.author-title {
-  text-decoration: underline;
-  font-size: 2rem;
-  margin-bottom: 10px;
-  color: white !important;
-}
-
 .about-text h2 {
-  margin-bottom: 20px;
-  color: white;
-  font-size: 1.6rem;
+  margin-top: 0;
+  margin-bottom: 25px;
+  color: #ffffff; 
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
 }
 
 .about-text p {
@@ -93,23 +157,60 @@ style={{
   margin-bottom: 1.5rem; 
 }
 
+.author-footer {
+  width: 100%;
+  max-width: 1000px;
+  margin-top: 40px; 
+  display: flex;
+  justify-content: center;
+}
+
+.tagline-striking {
+  display: flex;
+  align-items: center; 
+  width: 100%;
+  text-align: center;
+  font-family: "Inter", "Helvetica Neue", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.25em; 
+  color: #f8f3df; 
+  white-space: nowrap; 
+}
+
+.tagline-striking::before,
+.tagline-striking::after {
+  content: "";
+  flex: 1; 
+  height: 1px; 
+  background: #d78941; 
+}
+
+.tagline-striking::before {
+  margin-right: 25px;
+}
+
+.tagline-striking::after {
+  margin-left: 25px;
+}
+
 /* ==========================================
    MOBILE RESPONSIVE OVERRIDES
    ========================================== */
 @media (max-width: 768px) {
   #author {
     padding: 40px 20px !important;
-    background-position: 66% center !important; /* Adjust 85% up or down to frame it perfectly */
+    background-position: 66% center !important; 
+    height: auto !important;
   }
 
-  /* 2. Strip desktop constraints and encapsulate mobile width */
   .author-container {
     width: 100% !important;
     max-width: 100% !important;
     overflow: hidden !important; 
   }
 
-  /* 3. Drop flex side-by-side behaviors and center container children */
   .author-content {
     flex-direction: column !important;
     align-items: center !important;
@@ -117,42 +218,47 @@ style={{
     width: 100% !important;
   }
 
-  /* 4. Force text wrapper block to be perfectly symmetrical */
   .about-text {
     flex: none !important;
     width: 100% !important;
     max-width: 100% !important;
-    min-width: 0 !important; /* Breaks any unwritten minimum desktop width thresholds */
+    min-width: 0 !important; 
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important; 
   }
 
-  /* 5. Complete reset of photo margins to guarantee absolute centering */
   .author-photo {
-    float: none !important;       /* Destroys layout wrap breaking right boundaries */
+    float: none !important;       
     display: block !important;
-    margin: 0 auto 25px auto !important; /* Forces layout mathematical centering */
+    margin: 0 auto 25px auto !important; 
     width: 180px !important;
     max-width: 100% !important;
   }
 
-  /* 6. Enforce centered typography scales */
-  #author .about-text h1.author-title {
-    font-size: 1.8rem !important;
-    text-align: center !important;
-    width: 100% !important;
-    margin-bottom: 8px !important;
+  .author-header-striking {
+    margin-bottom: 20px !important;
+    padding: 0 5px !important;
   }
 
+  .author-header-striking h2.author-title {
+    font-size: 1.5rem !important; /* Unified mobile heading scale */
+    letter-spacing: 0.15em !important;
+    white-space: normal !important; 
+    word-wrap: break-word !important;
+    text-align: center !important;
+  }
+
+  .author-header-striking::before { margin-right: 15px !important; }
+  .author-header-striking::after { margin-left: 15px !important; }
+
   .about-text h2 {
-    font-size: 1.4rem !important;
+    font-size: 1.2rem !important;
     text-align: center !important;
     width: 100% !important;
     margin-bottom: 25px !important;
   }
 
-  /* 7. Ensure left-aligned body text fits fully inside screen paddings */
   .about-text p {
     text-align: left !important;
     width: 100% !important;
@@ -161,5 +267,18 @@ style={{
     line-height: 1.6 !important;
     margin-bottom: 1.2rem !important;
   }
+
+  .author-footer {
+    margin-top: 25px;
+    padding: 0 10px; 
+  }
+  
+  .tagline-striking {
+    font-size: 0.75rem; 
+    letter-spacing: 0.18em;
+  }
+  
+  .tagline-striking::before { margin-right: 15px; }
+  .tagline-striking::after { margin-left: 15px; }
 }
 </style>

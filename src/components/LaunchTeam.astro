@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets'
 import launch_team from '../assets/join_launch_team.jpg'
 import texture_launch_team from '../assets/textured_launch_logo.png'
 ---
@@ -7,12 +8,19 @@ import texture_launch_team from '../assets/textured_launch_logo.png'
   <div class="launch-container">
 
     <div class="launch-media-wrapper">
-      <img src={texture_launch_team.src} id="launch-team" alt="Join the Launch Team">
+      <Image 
+        src={texture_launch_team} 
+        id="launch-team" 
+        alt="Join the Launch Team" 
+      />
     </div>
       
     <div class="contact-section-wrapper">
       <div class="launch-info">
-        <h2 class="title">Launch Team</h2>
+        <div class="launch-header-striking">
+          <h2>Launch Team</h2>
+        </div>
+        
         <ul>
           <li>Support the <em>Art of True Advantage</em> launch by joining the Launch Team</li>
           <li>Stay informed about the book release and special events</li>
@@ -45,7 +53,8 @@ import texture_launch_team from '../assets/textured_launch_logo.png'
 .contact-form form,
 .form-group,
 .contact-form input,
-.btn-launch {
+.btn-launch,
+.launch-header-striking {
   box-sizing: border-box !important;
 }
 
@@ -68,12 +77,53 @@ import texture_launch_team from '../assets/textured_launch_logo.png'
   gap: 60px;               
 }
 
-.title {
-  font-size: 3.1rem;
-  font-weight: 800;
-  color: #d78941;
-  white-space: nowrap;
-  word-spacing: .2em;
+/* ==========================================
+   FORTIFIED LAUNCH TEAM STRIKING HEADER STYLES
+   ========================================== */
+.launch-header-striking {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important; /* Forces lines to stay dead-centered horizontally */
+  justify-content: center !important;
+  width: 100% !important;
+  margin: 0 0 35px 0 !important; 
+}
+
+.launch-header-striking h2 {
+  font-family: "Inter", "Helvetica Neue", sans-serif !important;
+  font-size: 2.5rem !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.2em !important; 
+  color: #d78941 !important; 
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  white-space: nowrap !important; 
+  border: none !important; /* Destroys any lingering global bottom-border resets */
+  background: transparent !important;
+}
+
+/* Forcing specific display and structure variables onto the pseudo-elements 
+   guarantees that no global text reset can collapse the line height rules. */
+.launch-header-striking::before,
+.launch-header-striking::after {
+  content: "" !important;
+  display: block !important;
+  flex: 1 !important; 
+  height: 1px !important; 
+  min-height: 1px !important;
+  background-color: #d78941 !important; /* FIXED: Upgraded from transparent RGBA to solid brand orange */
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.launch-header-striking::before {
+  margin-right: 30px !important;
+}
+
+.launch-header-striking::after {
+  margin-left: 30px !important;
 }
 
 .launch-media-wrapper {
@@ -83,7 +133,7 @@ import texture_launch_team from '../assets/textured_launch_logo.png'
 
 #launch-team {
   width: 100%;
-  height: 100%;            
+  height: 100%; 
   object-fit: cover;       
   object-position: center; 
   border-radius: 4px;
@@ -95,23 +145,11 @@ import texture_launch_team from '../assets/textured_launch_logo.png'
   flex-direction: column;
   justify-content: space-between; 
   gap: 30px;
-  min-width: 0; /* CRITICAL: Allows flex items to shrink smaller than their content */
+  min-width: 0; 
 }
 
 .launch-info {
   width: 100%;
-}
-
-.launch-info h2 {
-  font-size: 2.5rem;
-  color: #d78941;
-  border-bottom: 3px solid #d78941; 
-  display: block; 
-  width: 100%; 
-  margin-bottom: 20px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  text-align: center;
 }
 
 .launch-info ul {
@@ -168,7 +206,7 @@ import texture_launch_team from '../assets/textured_launch_logo.png'
 }
 
 .btn-launch {
-  background-color: #d78941;
+  background-color: #be742e;
   color: white;
   padding: 15px 40px;
   border: none;
@@ -181,7 +219,7 @@ import texture_launch_team from '../assets/textured_launch_logo.png'
 }
 
 .btn-launch:hover {
-  background-color: #b57232; 
+  background-color: #94561f; 
 }
 
 /* Mobile Responsive overrides */
@@ -196,21 +234,41 @@ import texture_launch_team from '../assets/textured_launch_logo.png'
     gap: 20px !important;            
     width: 100% !important;
     max-width: 100% !important;
-    overflow: hidden !important; /* Forces layout encapsulation */
+    overflow: hidden !important; 
   }
   
   .contact-section-wrapper {
     flex: none !important;
     width: 100% !important;
     max-width: 100% !important;
-    min-width: 0 !important; /* Breaks layout lock */
+    min-width: 0 !important; 
   }
 
-  .title, .launch-info h2 {
-    font-size: 2rem !important;
+  .launch-header-striking {
+    margin-bottom: 25px !important;
+    padding: 0 5px !important; 
+  }
+
+  .launch-header-striking h2 {
+    font-size: 1.5rem !important; 
+    letter-spacing: 0.15em !important;
     white-space: normal !important; 
     word-wrap: break-word !important;
     text-align: center !important;
+  }
+
+  /* Match mobile responsive transitions across sibling sections */
+  .launch-header-striking::before,
+  .launch-header-striking::after {
+    flex: 1 !important;
+  }
+
+  .launch-header-striking::before {
+    margin-right: 15px !important; 
+  }
+
+  .launch-header-striking::after {
+    margin-left: 15px !important;
   }
 
   .launch-info ul {

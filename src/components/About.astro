@@ -1,10 +1,19 @@
 ---
+import { Image } from 'astro:assets'
 import bookcover_new from '../assets/book_cover_new.png'
 ---
 <section id="about" class="about-section">
   
+  <div class="about-header-striking">
+    <h2 class="about-title">About the Book</h2>
+  </div>
+
   <div class="split">
-    <img src={bookcover_new.src} class="outline" alt="book cover">
+    <Image 
+      src={bookcover_new} 
+      class="outline" 
+      alt="book cover" 
+    />
     
     <div class="about-text-block">
       <h3>Improve Your Mindset, Elevate Your Results.</h3>
@@ -18,13 +27,25 @@ import bookcover_new from '../assets/book_cover_new.png'
       </ul>
       
       <p class="blueprint-p">All of us have far more influence than we routinely realize. The <em>Art of True Advantage</em> is the blueprint for becoming more effective at using the influence we have to craft the life we deeply want to lead.</p>
-      
-      <h3 class="footer">Internal Orientation Drives Outcomes.</h3>
     </div>
+  </div>
+
+  <div class="about-footer-striking">
+    <h2 class="footer-title">Orientation Drives Outcomes.</h2>
   </div>
 </section>
 
 <style>
+  /* Ensure universal box sizing across Astro's scoped boundaries */
+  .about-section,
+  .about-header-striking,
+  .about-footer-striking,
+  .split,
+  .outline,
+  .about-text-block {
+    box-sizing: border-box !important;
+  }
+
   .about-section {
     display: flex;
     align-items: center;
@@ -32,7 +53,76 @@ import bookcover_new from '../assets/book_cover_new.png'
     padding: 60px 20px; 
     background-color: #f8f3df;
     scroll-margin-top: 80px;
+    width: 100%;
+  }
 
+  /* ==========================================
+     FORTIFIED ABOUT STRIKING HEADER STYLES
+     ========================================== */
+  .about-header-striking,
+  .about-footer-striking {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important; 
+    justify-content: center !important;
+    width: 100% !important;
+    max-width: 1100px !important; 
+  }
+
+  .about-header-striking {
+    margin: 0 auto 50px auto !important; 
+  }
+
+  .about-footer-striking {
+    margin: 50px auto 0 auto !important; 
+  }
+
+  .about-header-striking h2.about-title,
+  .about-footer-striking h2.footer-title {
+    font-family: "Inter", "Helvetica Neue", sans-serif !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.2em !important; 
+    color: #6b4423 !important; 
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    white-space: nowrap !important; 
+    border: none !important; 
+    background: transparent !important;
+  }
+
+  .about-header-striking h2.about-title {
+    font-size: 2.2rem !important;
+  }
+
+  .about-footer-striking h2.footer-title {
+    font-size: 1.5rem !important;
+    letter-spacing: 0.25em !important; /* Elegant wider tracking for the tagline statement */
+  }
+
+  .about-header-striking::before,
+  .about-header-striking::after,
+  .about-footer-striking::before,
+  .about-footer-striking::after {
+    content: "" !important;
+    display: block !important;
+    flex: 1 !important; 
+    height: 1px !important; 
+    min-height: 1px !important; 
+    background-color: #d78941 !important; 
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .about-header-striking::before,
+  .about-footer-striking::before {
+    margin-right: 30px !important;
+  }
+
+  .about-header-striking::after,
+  .about-footer-striking::after {
+    margin-left: 30px !important;
   }
 
   .split {
@@ -47,7 +137,7 @@ import bookcover_new from '../assets/book_cover_new.png'
   .outline {
     max-width: 320px;
     width: 100%;
-    height: auto;
+    height: auto; 
     border: 1px solid;
     border-image-source: linear-gradient(135deg, #d78941, #8e5a2b);
     border-image-slice: 1;
@@ -102,51 +192,81 @@ import bookcover_new from '../assets/book_cover_new.png'
     font-size: 1.05rem;
   }
 
-  .footer {
-    padding-top: 1em;
+  /* ==========================================
+     MOBILE RESPONSIVE OVERRIDES
+     ========================================== */
+@media (max-width: 768px) {
+  .about-header-striking {
+    margin-bottom: 30px !important;
+    padding: 0 5px !important;
   }
 
-  /* Mobile Responsive overrides */
-@media (max-width: 768px) {
-  .outline {
-    max-width: 250px; /* Slightly smaller book cover for better mobile proportions */
+  .about-footer-striking {
+    margin-top: 35px !important;
+    padding: 0 5px !important;
   }
+
+  .about-header-striking h2.about-title {
+    font-size: 1.5rem !important; 
+    letter-spacing: 0.15em !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    text-align: center !important;
+  }
+
+  /* FIXED: Scaled down text size and padded margins to perfectly replicate the Author section's clean tracking */
+  .about-footer-striking h2.footer-title {
+    font-size: 0.75rem !important; 
+    letter-spacing: 0.18em !important;
+    white-space: nowrap !important; /* Locks it to a single line so the side tracks stay uniform */
+    text-align: center !important;
+  }
+
+  .about-header-striking::before,
+  .about-header-striking::after,
+  .about-footer-striking::before,
+  .about-footer-striking::after {
+    flex: 1 !important;
+  }
+
+  .about-header-striking::before,
+  .about-footer-striking::before { margin-right: 15px !important; }
+  .about-header-striking::after,
+  .about-footer-striking::after { margin-left: 15px !important; }
+
   .split {
     flex-direction: column;
-    align-items: center;    /* Centers the image and text block container horizontally */
-    text-align: center;     /* Centers all standard text inline */
+    align-items: center;    
+    text-align: center;     
     gap: 30px;
   }
 
   .outline {
-    max-width: 260px;       /* Slightly smaller book cover for better mobile proportions */
+    max-width: 260px;       
   }
 
   .about-text-block {
     width: 100%;
-    align-items: center;    /* Ensures nested flex items align to center */
+    align-items: center;    
   }
 
-  /* Shrinks the titles so they snap cleanly onto a single line */
-  .about-text-block h3, 
-  .about-text-block .footer {
+  .about-text-block h3 {
     font-size: 1.2rem !important; 
     text-align: center;
     width: 100%;
-    white-space: normal;    /* Fallback protection */
+    white-space: normal;    
   }
 
-  /* Centers the list block while keeping the text left-aligned for readability */
   .values-list {
     text-align: left;
-    display: inline-block;  /* Shrinks container to content width so it can be centered */
-    max-width: 90%;         /* Prevents it from hugging the screen edges */
+    display: inline-block;  
+    max-width: 90%;         
     margin: 0 auto 30px auto; 
     padding: 0;
   }
 
   .values-list li {
-    font-size: 0.95rem;     /* Slightly crisper text for small viewports */
+    font-size: 0.95rem;     
   }
 }
 </style>

@@ -1,11 +1,17 @@
 ---
-import nav_logo from '../assets/nav_logo_final.png'
+import { Image } from 'astro:assets'
+import nav_logo from '../assets/nav_logo.png'
 ---
 
 <nav class="navbar">
   <div class="container">
     <a href="/" class="logo">
-      <img src={nav_logo.src} id="nav-logo" alt="Join the Launch Team">
+      <Image 
+        src={nav_logo} 
+        id="nav-logo" 
+        alt="Join the Launch Team" 
+        loading="eager"
+      />
     </a>
 
     <div class="nav-wrapper">
@@ -39,8 +45,6 @@ import nav_logo from '../assets/nav_logo_final.png'
       <span></span>
       <span></span>
     </button>
-
-    <!-- <a href="#buy" class="cta-button">Order Now</a> -->
   </div>
 </nav>
 
@@ -75,11 +79,9 @@ import nav_logo from '../assets/nav_logo_final.png'
   }
 
   #nav-logo {
-    /* Height controls the physical scale in the navbar. 
-       45px to 55px is standard for modern web navs. Adjust this single value to size it up or down. */
+    /* Height controls the physical scale in the navbar. */
     height: 55px; 
-    
-    width: auto; /* Maintains original aspect ratio precisely to prevent distortion */
+    width: auto; /* Explicitly safeguards original aspect ratio precisely from default inline width attributes */
     display: block;
     object-fit: contain;
   }
@@ -87,17 +89,16 @@ import nav_logo from '../assets/nav_logo_final.png'
   .line-one {
     font-size: 1.1rem;
     font-weight: 700;
-    letter-spacing: 0.14em; /* Adjusted to stretch "ART of TRUE" */
+    letter-spacing: 0.14em;
     margin-bottom: 2px;
     margin-left: .18rem
-    /* white-space: nowrap; */
   }
 
   .line-two {
-    font-size: 1.5rem; /* Larger font to make "ADVANTAGE" the anchor */
+    font-size: 1.5rem;
     font-weight: 900;
-    letter-spacing: -0.02em; /* Tightens the long word */
-    color: #6b4423; /* Dark brown for a grounded look */
+    letter-spacing: -0.02em;
+    color: #6b4423;
   }
 
   .nav-links {
@@ -109,10 +110,9 @@ import nav_logo from '../assets/nav_logo_final.png'
 
   .nav-links li {
     display: flex;
-    algin-items: stretch;
+    align-items: stretch;
   }
 
-  /* Standard Link Styling (The "Box") */
   .nav-links a.standard-link {
     display: flex;
     align-items: center;
@@ -122,13 +122,12 @@ import nav_logo from '../assets/nav_logo_final.png'
     font-weight: 600;
     font-size: 0.9rem;
     letter-spacing: 0.05em;
-    padding: 1rem 1.5rem; /* The padding is now INSIDE the link */
+    padding: 1rem 1.5rem;
     border-top: 1px solid #d78941;
     border-bottom: 1px solid #d78941;
     transition: all 0.2s ease;
     width: 100%;
   }
-
 
   .launch-team {
     width: 100%;
@@ -140,14 +139,11 @@ import nav_logo from '../assets/nav_logo_final.png'
     z-index: 1;
   }
 
-  /* The "Join the Launch Team" Box */
   .launch-team-link {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* line-height: 1.1; */
-    /* text-align: center; */
     min-width: 150px;
     padding: .5rem 2rem;
     text-decoration: none;
@@ -161,7 +157,6 @@ import nav_logo from '../assets/nav_logo_final.png'
     content: "";
     position: absolute;
     filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 4px rgba(138, 154, 171, 0.4));
-    /* Appearance */
     background-color: #d78941;
     -webkit-mask-image: url("data:image/svg+xml,%3Csvg width='160' height='160' viewBox='0 0 160 160' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M80 0C80 0 84.2846 41.2925 101.496 58.504C118.707 75.7154 160 80 160 80C160 80 118.707 84.2846 101.496 101.496C84.2846 118.707 80 160 80 160C80 160 75.7154 118.707 58.504 101.496C41.2925 84.2846 0 80 0 80C0 80 41.2925 75.7154 58.504 58.504C75.7154 41.2925 80 0 80 0Z' fill='black'/%3E%3C/svg%3E");
     mask-image: url("data:image/svg+xml,%3Csvg width='160' height='160' viewBox='0 0 160 160' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M80 0C80 0 84.2846 41.2925 101.496 58.504C118.707 75.7154 160 80 160 80C160 80 118.707 84.2846 101.496 101.496C84.2846 118.707 80 160 80 160C80 160 75.7154 118.707 58.504 101.496C41.2925 84.2846 0 80 0 80C0 80 41.2925 75.7154 58.504 58.504C75.7154 41.2925 80 0 80 0Z' fill='black'/%3E%3C/svg%3E");
@@ -171,123 +166,42 @@ import nav_logo from '../assets/nav_logo_final.png'
     mask-repeat: no-repeat;
     animation: comeau-twinkle 2.5s linear infinite;
     opacity: 0;
-    }
+  }
 
-/* Sparkle 1: Top Right */
   .launch-team::before {
     width: 20px; height: 20px;
     top: 5px; right: 10px;
     animation-delay: 0s;
   }
 
-  /* Sparkle 2: Bottom Left */
   .launch-team::after {
     width: 15px; height: 15px;
     bottom: 5px; left: 15px;
     animation-delay: 0.2s;
   }
 
-  /* Sparkle 3: Top Left */
-  .s1 {
-    width: 12px; height: 12px;
-    top: 8px; left: 10px;
-    animation-delay: 0.8s;
-  }
+  .s1 { width: 12px; height: 12px; top: 8px; left: 10px; animation-delay: 0.8s; }
+  .s2 { width: 10px; height: 10px; top: 5%; right: 5px; animation-delay: 2.2s; }
+  .s3 { width: 14px; height: 14px; bottom: .5px; right: 25%; animation-delay: 1.2s; }
+  .s4 { width: 6px; height: 6px; bottom: 4px; right: 50%; animation-delay: 0.6s; }
+  .s5 { width: 12px; height: 12px; top: 20px; left: 20px; animation-delay: 1.5s; }
+  .s6 { width: 8px; height: 8px; top: 5px; left: 20px; animation-delay: 0.9s; }
+  .s7 { width: 12px; height: 12px; top: 2px; left: 50px; animation-delay: 1.9s; }
+  .s8 { width: 10px; height: 10px; top: 0.5px; left: 40px; animation-delay: 0.6s; }
+  .s9 { width: 8px; height: 8px; top: 0.5px; right: 70px; animation-delay: 1.2s; }
+  .s10 { width: 8px; height: 8px; top: 7px; right: 50px; animation-delay: 0.2s; }
+  .s11 { width: 11px; height: 11px; top: 1px; right: 42px; animation-delay: 1.5s; }
+  .s12 { width: 7px; height: 7px; top: 0.5px; right: 38px; animation-delay: 1.8s; }
 
-  /* Sparkle 4: Center Right */
-  .s2 {
-    width: 10px; height: 10px;
-    top: 5%; right: 5px;
-    animation-delay: 2.2s;
+  @keyframes comeau-twinkle {
+    0% { transform: scale(0) rotate(0deg); opacity: 0; }
+    15% { transform: scale(1.2) rotate(60deg); opacity: 1; }
+    30% { transform: scale(0) rotate(120deg); opacity: 1; }
+    100% { transform: scale(0) rotate(180deg); opacity: 0; }
   }
-
-  /* Sparkle 5: Bottom Right */
-  .s3 {
-    width: 14px; height: 14px;
-    bottom: .5px; right: 25%;
-    animation-delay: 1.2s;
-  }
-
-  .s4 {
-    width: 6px; height: 6px;
-    bottom: 4px; right: 50%;
-    animation-delay: 0.6s;
-  }
-
-  .s5 {
-    width: 12px; height: 12px;
-    top: 20px; left: 20px;
-    animation-delay: 1.5s;
-  }
-
-  .s6 {
-    width: 8px; height: 8px;
-    top: 5px; left: 20px;
-    animation-delay: 0.9s;
-  }
-
-  .s7 {
-    width: 12px; height: 12px;
-    top: 2px; left: 50px;
-    animation-delay: 1.9s;
-  }
-  
-  .s8 {
-    width: 10px; height: 10px;
-    top: 0.5px; left: 40px;
-    animation-delay: 0.6s;
-  }
-
-  .s9 {
-    width: 8px; height: 8px;
-    top: 0.5px; right: 70px;
-    animation-delay: 1.2s;
-  }
-
-  .s10 {
-    width: 8px; height: 8px;
-    top: 7px; right: 50px;
-    animation-delay: 0.2s;
-  }
-
-  .s11 {
-    width: 11px; height: 11px;
-    top: 1px; right: 42px;
-    animation-delay: 1.5s;
-  }
-
-  .s12 {
-    width: 7px; height: 7px;
-    top: 0.5px; right: 38px;
-    animation-delay: 1.8s;
-  }
-
-@keyframes comeau-twinkle {
-  0% {
-    transform: scale(0) rotate(0deg);
-    opacity: 0;
-  }
-  /* THE BURST: It reaches full size and 1.0 opacity very quickly */
-  15% {
-    transform: scale(1.2) rotate(60deg); /* Only rotated 30 degrees so far */
-    opacity: 1;
-  }
-  /* THE FADE: It shrinks back down quickly, but the rotation isn't done */
-  30% {
-    transform: scale(0) rotate(120deg);
-    opacity: 1;
-  }
-  /* THE FINISH: It stays invisible but finishes the 180-degree rotation 
-     This ensures that the NEXT time it appears, it starts from a 'fresh' angle */
-  100% {
-    transform: scale(0) rotate(180deg);
-    opacity: 0;
-  }
-}
-
 
   .nav-links a:hover .bottom-line {
-    color: #bf7635; /* Darker orange on hover */
+    color: #bf7635;
   }
 
   .cta-button {
@@ -301,7 +215,7 @@ import nav_logo from '../assets/nav_logo_final.png'
   }
 
   .cta-button:hover {
-    background-color: #bf7635; /* Slightly darker shade */
+    background-color: #bf7635;
     transform: translateY(-1px);
   }
 
@@ -319,7 +233,6 @@ import nav_logo from '../assets/nav_logo_final.png'
     color: #d78941;
   }
 
-
   .top-line {
     font-size: 0.7rem;
     opacity: 0.8;
@@ -332,100 +245,88 @@ import nav_logo from '../assets/nav_logo_final.png'
     white-space: nowrap;
   }
 
-  /* 1. Hamburger Icon Styling */
-.hamburger {
-  display: none; /* Hidden by default */
-  flex-direction: column;
-  gap: 5px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 10px;
-}
-
-.hamburger span {
-  display: block;
-  width: 25px;
-  height: 3px;
-  background-color: #6b4423;
-  transition: 0.3s;
-  }
-
-/* 2. Responsive Breakpoint */
-@media (max-width: 1024px) { 
-  .container {
-    padding: 0 1rem;
-    justify-content: space-between;
-    gap: 0;
-  }
-  
-  .nav-links {
-    display: none; 
-    flex-direction: column;
-    position: absolute;
-    top: 100%;
-    
-    /* THE FIX: Anchor to the right, let width fit the text content */
-    left: auto;
-    right: 0;
-    width: max-content; 
-    min-width: 200px; /* Guarantees a clean baseline width */
-    
-    /* Visual Polishing */
-    background: #f8f3df;
-    padding: .25rem 0; /* Vertical padding inside the menu box */
-    border: 1px solid #6b4423; /* Fully enclose the box instead of just a bottom border */
-    border-radius: 4px;
-    box-shadow: 0 10px 25px rgba(107, 68, 35, 0.15); /* Soft brown drop shadow */
-    gap: 0;
-  }
-
-  .nav-links.active {
-    display: flex; 
-  }
-
   .hamburger {
-    display: flex; 
-    flex-shrink: 0;
-  }
-
-  /* Structural fixes for the internal links on mobile */
-  .nav-links li, .nav-links li:not(.launch-team) {
-    width: 100%;
-    border: none; 
-    display: block; /* Stack rows cleanly */
-  }
-
-  /* Make the links feel like menu items */
-  .nav-links a.standard-link, .launch-team-link {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
     border: none;
-    padding: 1rem 2rem; /* Generous side padding for the text */
-    width: 100%;
-    box-sizing: border-box;
-    text-align: left; /* Align text nicely to the left of the menu box */
-    justify-content: flex-start;
+    cursor: pointer;
+    padding: 10px;
   }
 
-  /* Add a subtle hover highlight background for mobile users */
-  .nav-links a:hover {
-    background-color: rgba(215, 137, 65, 0.08);
+  .hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #6b4423;
+    transition: 0.3s;
   }
-}
+
+  @media (max-width: 1024px) { 
+    .container {
+      padding: 0 1rem;
+      justify-content: space-between;
+      gap: 0;
+    }
+    
+    .nav-links {
+      display: none; 
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: auto;
+      right: 0;
+      width: max-content; 
+      min-width: 200px; 
+      background: #f8f3df;
+      padding: .25rem 0; 
+      border: 1px solid #6b4423; 
+      border-radius: 4px;
+      box-shadow: 0 10px 25px rgba(107, 68, 35, 0.15); 
+      gap: 0;
+    }
+
+    .nav-links.active {
+      display: flex; 
+    }
+
+    .hamburger {
+      display: flex; 
+      flex-shrink: 0;
+    }
+
+    .nav-links li, .nav-links li:not(.launch-team) {
+      width: 100%;
+      border: none; 
+      display: block; 
+    }
+
+    .nav-links a.standard-link, .launch-team-link {
+      border: none;
+      padding: 1rem 2rem; 
+      width: 100%;
+      box-sizing: border-box;
+      text-align: left; 
+      justify-content: flex-start;
+    }
+
+    .nav-links a:hover {
+      background-color: rgba(215, 137, 65, 0.08);
+    }
+  }
 </style>
 
 <script>
   const menuToggle = document.getElementById('menu-toggle');
   const navLinks = document.querySelector('.nav-links');
   
-  // Toggle menu open/close
   menuToggle?.addEventListener('click', (e) => {
-    // Prevent the document listener from instantly catching this click
     e.stopPropagation(); 
     navLinks?.classList.toggle('active');
     menuToggle.classList.toggle('is-active');
   });
 
-  // Close menu when clicking an individual link
   const individualLinks = document.querySelectorAll('.nav-links a');
   individualLinks.forEach(link => {
     link.addEventListener('click', () => {
@@ -434,12 +335,8 @@ import nav_logo from '../assets/nav_logo_final.png'
     });
   });
 
-  // NEW: Close menu when clicking anywhere outside the navbar dropdown
   document.addEventListener('click', (event) => {
     const isMenuOpen = navLinks?.classList.contains('active');
-    
-    // If the menu is open, and the click target is NOT the menu toggle button, 
-    // and NOT inside the dropdown links themselves, close it.
     if (isMenuOpen && !menuToggle?.contains(event.target as Node) && !navLinks?.contains(event.target as Node)) {
       navLinks?.classList.remove('active');
       menuToggle?.classList.remove('is-active');
