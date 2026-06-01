@@ -1,12 +1,20 @@
 ---
 // src/pages/404.astro
-import Layout from '../layouts/Layout.astro'; 
+import { Image, getImage } from 'astro:assets'
+import Layout from '../layouts/Layout.astro';
+import logo from '../assets/enso.png'
+
+const webp_logo = await getImage({ src: logo, format: 'webp', quality: 75 })
 ---
 
 <Layout title="404 Page Not Found | The Art of True Advantage">
   <section class="not-found-section">
     <div class="not-found-container">
-      
+      <Image 
+        src={logo}
+        class="logo"
+        alt="enso_logo"
+      />
       <h1 class="error-number">404</h1>
 
       <div class="error-content">
@@ -27,6 +35,11 @@ import Layout from '../layouts/Layout.astro';
   .error-content,
   .btn-home {
     box-sizing: border-box !important;
+  }
+
+  .logo {
+    width: 250px;
+    height: auto;
   }
 
   .not-found-section {
@@ -94,6 +107,11 @@ import Layout from '../layouts/Layout.astro';
      RESPONSIVE MOBILE GRAPHIC SCALING
      ========================================== */
   @media (max-width: 768px) {
+    .logo {
+      width: 100px;
+      height: auto;
+    }
+
     .error-number {
       font-size: 4.5rem !important;
     }
