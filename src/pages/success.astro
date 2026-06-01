@@ -1,0 +1,130 @@
+---
+// src/pages/success.astro
+import { Image } from 'astro:assets'
+import Layout from '../layouts/Layout.astro';
+import logo from '../assets/enso.png'
+---
+
+<Layout title="Welcome to the Team | The Art of True Advantage">
+  <section class="success-section">
+    <div class="success-container">
+      <Image 
+        src={logo}
+        width={150}
+        class="logo"
+        alt="enso_logo"
+      />
+
+      <div class="success-content">
+        <h2>You're on the Team!</h2>
+        <p>Thank you for joining the launch team for <em>The Art of True Advantage</em>. We've recorded your information and will be in touch with release updates and your exclusive book signing invitation.</p>
+        
+        <a href="/" class="btn-home">Return to Home</a>
+      </div>
+
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .not-found-section, /* Left in place if globally dependent, but scoped safely */
+  .success-section,
+  .success-container,
+  .success-content,
+  .btn-home {
+    box-sizing: border-box !important;
+  }
+
+  .logo {
+    width: 150px;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  .success-section {
+    width: 100%;
+    min-height: 70vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000000; 
+    padding: 60px 20px;
+  }
+
+  .success-container {
+    max-width: 500px; 
+    width: 100%;
+    text-align: center;
+  }
+
+  .success-check {
+    font-family: "Inter", "Helvetica Neue", sans-serif !important;
+    font-size: 6rem !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    letter-spacing: -0.01em !important;
+    color: #d78941 !important; 
+    margin: 0 0 15px 0 !important;
+    padding: 0 !important;
+  }
+
+  .success-content h2 {
+    font-family: "Inter", "Helvetica Neue", sans-serif;
+    color: #ffffff;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0 0 15px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .success-content p {
+    color: #b0b0b0; 
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin: 0 0 35px 0;
+  }
+  
+  .success-content p em {
+    font-style: italic;
+    color: #ffffff;
+  }
+
+  .btn-home {
+    display: inline-block;
+    background-color: #d78941;
+    color: #ffffff;
+    padding: 14px 35px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.85rem;
+    transition: background-color 0.2s ease;
+  }
+
+  .btn-home:hover {
+    background-color: #b57232;
+  }
+
+
+  @media (max-width: 768px) {
+    .logo {
+      width: 100px;
+      height: auto;
+    }
+
+    .success-check {
+      font-size: 4.5rem !important;
+    }
+    .success-content h2 { 
+      font-size: 1.5rem; 
+    }
+    .success-content p { 
+      font-size: 1rem; 
+      margin-bottom: 25px;
+    }
+  }
+</style>
