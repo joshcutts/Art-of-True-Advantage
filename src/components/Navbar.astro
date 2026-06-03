@@ -64,7 +64,9 @@ import nav_logo from '../assets/nav_logo.png'
     justify-content: flex-start;
     gap: 4rem;
     align-items: center;
-    padding: 0 3rem;
+    padding: 0 clamp(1.5rem, 4vw, 3rem); 
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .nav-wrapper {
@@ -104,7 +106,7 @@ import nav_logo from '../assets/nav_logo.png'
   .nav-links {
     display: flex;
     list-style: none;
-    gap: 2rem;
+    gap: clamp(1rem, 2vw, 2rem);
     margin: 0;
   }
 
@@ -127,6 +129,7 @@ import nav_logo from '../assets/nav_logo.png'
     border-bottom: 1px solid #d78941;
     transition: all 0.2s ease;
     width: 100%;
+    padding: 1rem clamp(0.75rem, 1.5vw, 1.5rem);
   }
 
   .launch-team {
@@ -263,7 +266,7 @@ import nav_logo from '../assets/nav_logo.png'
     transition: 0.3s;
   }
 
-  @media (max-width: 1024px) { 
+  @media (max-width: 1155px) { 
     .container {
       padding: 0 1rem;
       justify-content: space-between;
