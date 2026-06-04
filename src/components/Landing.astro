@@ -12,10 +12,11 @@ import Countdown from '../components/Countdown.astro'
       src={bookcover} 
       class="outline" 
       alt="the ART of TRUE ADVANTAGE" 
+      width={500}
       loading="eager"
       fetchpriority="high"
+      decoding="async"
     />
-    <!-- <img src={bookcover.src} class="outline" alt="the ART of TRUE ADVANTAGE" /> -->
   </div>
 
   <div class="content-bundle">
@@ -47,7 +48,6 @@ import Countdown from '../components/Countdown.astro'
   width: 100%;
   border: 1px solid;
   height: auto;
-  /* Creates a gradient from your orange to a darker version */
   border-image-source: linear-gradient(135deg, #d78941, #8e5a2b);
   border-image-slice: 1;
   box-shadow: 0 10px 30px rgba(0,0,0,0.4);
@@ -91,7 +91,7 @@ main {
     flex-direction: column;
     align-items: center;
     width: min-content; 
-    min-width: 600px; /* Ensures a spacious minimum track for "Paperback Coming Soon" on one line */
+    min-width: 600px;
   }
 
   .cta-buttons {
@@ -100,7 +100,7 @@ main {
     gap: 0.85rem;
     align-items: center;
     width: 100%;
-    max-width: 600px; /* Snug wrapper so buttons don't stretch excessively */
+    max-width: 600px;
   }
 
   .btn {
@@ -116,7 +116,7 @@ main {
     text-decoration: none;
     border-radius: 4px;
     box-sizing: border-box;
-    white-space: nowrap; /* Forces "Paperback Coming Soon" to sit crisply on one horizontal string */
+    white-space: nowrap;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
@@ -155,7 +155,7 @@ main {
     user-select: none;
   }
 
-  /* Target tablets and laptops (like the MacBook Air) */
+  /* Target tablets and laptops */
   @media (min-width: 768px) and (max-height: 820px) {
     #landing {
       gap: 0.5rem;
