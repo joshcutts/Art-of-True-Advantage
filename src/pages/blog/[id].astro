@@ -1,0 +1,122 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { Image } from 'astro:assets'; // 1. Import Astro's optimized Image component
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({
+    params: { id: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+// 2. Use Astro's global image importer to dynamically resolve the local src path
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/blog/**/*.{jpeg,jpg,png,gif,webp}');
+const imagePath = post.data.image;
+
+// 3. Verify the file actually exists in your src/assets folder
+if (imagePath && !images[imagePath]) {
+  throw new Error(`[Blog Template] Image path "${imagePath}" not found in "/src/assets/blog/"`);
+}
+---
+
+<Layout title={`${post.data.title} | The Insights Journal`}>
+  <article class="blog-post">
+    <header class="post-header">
+      <time datetime={post.data.date.toISOString()}>
+        {post.data.date.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        })}
+      </time>
+      <h1>{post.data.title}</h1>
+      <p class="post-summary">{post.data.summary}</p>
+
+      {/* 4. Render using the optimized <Image /> component */}
+      {imagePath && (
+        <div class="post-banner-wrapper">
+          <Image src={images[imagePath]()} alt={`Cover for ${post.data.title}`} class="post-banner" />
+        </div>
+      )}
+    </header>
+
+    <hr class="divider" />
+
+    <div class="post-content">
+      <Content />
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .blog-post {
+    max-width: 720px;
+    margin: 80px auto;
+    padding: 0 24px;
+  }
+
+  .post-header {
+    margin-bottom: 32px;
+  }
+
+  .post-header time {
+    font-size: 0.9rem;
+    color: #d78941;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+
+  .post-header h1 {
+    font-size: 2.8rem;
+    color: #1a1a1a;
+    margin: 12px 0 16px 0;
+    line-height: 1.2;
+  }
+
+  .post-summary {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: #555555;
+    font-style: italic;
+  }
+
+  .divider {
+    border: 0;
+    border-top: 1px solid #6b442322;
+    margin: 40px 0;
+  }
+
+  .post-content :global(p) {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #222222;
+    margin-bottom: 1.75rem;
+  }
+
+  .post-content :global(h3) {
+    font-size: 1.6rem;
+    color: #1a1a1a;
+    margin: 2.5rem 0 1rem 0;
+  }
+
+  .post-banner-wrapper {
+    width: 100%;
+    margin-top: 24px;
+    overflow: hidden;
+  }
+
+  .post-banner {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+    border: 1px solid #6b442322;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  }
+</style>
