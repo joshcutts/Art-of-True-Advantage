@@ -1,0 +1,19 @@
+backend:
+  name: git-gateway
+  branch: main # Automatically pushes edits directly to your live production branch
+
+media_folder: "src/assets/blog" # Where user-uploaded files will be saved in your repo
+public_folder: "/src/assets/blog" # The file system path string inserted into frontmatter
+
+collections:
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "src/content/blog" # Where your Markdown articles live
+    create: true # Allows the author to add new entries
+    slug: "{{slug}}" # Generates file name based on title (e.g., mindset-shift.md)
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Summary", name: "summary", widget: "text" }
+      - { label: "Cover Image", name: "image", widget: "image", required: false }
+      - { label: "Body Content", name: "body", widget: "markdown" }
