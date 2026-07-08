@@ -1,0 +1,110 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro'; // Adjust this path if your main Layout is elsewhere
+
+// 1. Fetch all text files registered inside src/content/blog/
+const allPosts = await getCollection('blog');
+
+// 2. Sort posts chronologically (newest first)
+const sortedPosts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Layout title="The Art of True Advantage | Blog">
+  <main class="blog-index">
+    <header class="blog-header">
+      <h1>The Art of True Advantage - Blog</h1>
+      <p>Internal Orientation Drives External Outcomes.</p>
+    </header>
+
+    <section class="posts-grid">
+      {sortedPosts.map(post => (
+        <article class="post-card">
+          <time datetime={post.data.date.toISOString()}>
+            {post.data.date.toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}
+          </time>
+          
+          <h2>{post.data.title}</h2>
+          <p class="summary">{post.data.summary}</p>
+          
+          {/* This points to the individual article view we will build next */}
+          <a href={`/blog/${post.id}`} class="read-more">Read Entry →</a>
+        </article>
+      ))}
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .blog-index {
+    max-width: 900px;
+    margin: 80px auto;
+    padding: 0 24px;
+  }
+
+  .blog-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .blog-header h1 {
+    font-size: 2.5rem;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+  }
+
+  .blog-header p {
+    color: #d78941; /* Your brand orange */
+    font-style: italic;
+  }
+
+  .posts-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .post-card {
+    background: #ffffff;
+    padding: 32px;
+    border: 1px solid #6b442333;
+    box-shadow: 0 4px 20px rgba(107, 68, 35, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .post-card time {
+    font-size: 0.85rem;
+    color: #777;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  .post-card h2 {
+    font-size: 1.8rem;
+    color: #1a1a1a;
+    margin: 0 0 16px 0;
+  }
+
+  .post-card .summary {
+    color: #4a4a4a;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .read-more {
+    color: #d78941;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .read-more:hover {
+    color: #8e5a2b;
+  }
+</style>

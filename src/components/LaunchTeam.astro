@@ -23,9 +23,9 @@ import texture_launch_team from '../assets/textured_community_logo.png'
         </div>
         
         <ul>
-          <li>Receive the Preface and Guide to Contents from The Art of True Advantage.</li>
+          <li style="font-weight: bold; font-size: 1.2em; --bullet: none;">Receive the Preface and Guide to Contents from The Art of True Advantage.</li>
           <li>Stay connected through occasional articles, insights, and updates from Christopher Boyer.</li>
-          <li style="font-weight: bold; font-size: 1.2em;">Join a growing community exploring how perspective shapes outcomes.</li>
+          <li>Join a growing community exploring how perspective shapes outcomes.</li>
         </ul>
       </div>
       
@@ -219,11 +219,15 @@ import texture_launch_team from '../assets/textured_community_logo.png'
 }
 
 .launch-info li::before {
-  content: "→";
+  content: var(--bullet, "→");
   position: absolute;
   left: 0;
   color: #d78941;
   font-weight: bold;
+}
+
+.launch-info li[style*="--bullet: none"] {
+  padding-left: 0;
 }
 
 .contact-form {
