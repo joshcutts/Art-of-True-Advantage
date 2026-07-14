@@ -1,21 +1,34 @@
 ---
 import { getCollection } from 'astro:content';
-import Layout from '../../layouts/Layout.astro'; // Adjust this path if your main Layout is elsewhere
+import Layout from '../../layouts/Layout.astro';
 
-// 1. Fetch all text files registered inside src/content/blog/
 const allPosts = await getCollection('blog');
-
-// 2. Sort posts chronologically (newest first)
 const sortedPosts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Import raw assets directly to completely bypass Astro's lossy image compilation
+import desktopHeaderImg from '../../assets/blog/blog-header-desktop.png';
+import mobileHeaderImg from '../../assets/blog/blog-header-mobile.png';
 ---
 
 <Layout title="The Art of True Advantage | Blog">
-  <main class="blog-index">
-    <header class="blog-header">
-      <h1>The Art of True Advantage - Blog</h1>
-      <p>Internal Orientation Drives External Outcomes.</p>
-    </header>
+  
+  <header class="blog-header-container">
+    <!-- Pure, valid HTML picture element pulling the direct source paths -->
+    <picture class="responsive-header">
+      <source media="(max-width: 767px)" srcset={mobileHeaderImg.src} />
+      <source media="(min-width: 768px)" srcset={desktopHeaderImg.src} />
+      <img 
+        src={desktopHeaderImg.src} 
+        alt="The Art of True Advantage Blog - Orientation Outcomes" 
+        class="header-graphic" 
+        loading="eager"
+        decoding="sync"
+      />
+    </picture>
+  </header>
 
+  <!-- Content column sits clean and centered directly on your page background -->
+  <main class="blog-index">
     <section class="posts-grid">
       {sortedPosts.map(post => (
         <article class="post-card">
@@ -30,7 +43,6 @@ const sortedPosts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.
           <h2>{post.data.title}</h2>
           <p class="summary">{post.data.summary}</p>
           
-          {/* This points to the individual article view we will build next */}
           <a href={`/blog/${post.id}`} class="read-more">Read Entry →</a>
         </article>
       ))}
@@ -39,72 +51,132 @@ const sortedPosts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.
 </Layout>
 
 <style>
-  .blog-index {
-    max-width: 900px;
-    margin: 80px auto;
+  /* --- 1. Expanded Header Container --- */
+  .blog-header-container {
+    width: 100%;
+    max-width: 1000px; 
+    margin: 60px auto 40px auto;
     padding: 0 24px;
+    box-sizing: border-box;
   }
 
-  .blog-header {
-    text-align: center;
-    margin-bottom: 60px;
+  .responsive-header {
+    width: 100%;
+    display: block;
   }
 
-  .blog-header h1 {
-    font-size: 2.5rem;
-    color: #1a1a1a;
-    margin-bottom: 12px;
+  .header-graphic {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    
+    /* Force high-contrast rendering algorithms to lock thin text details on scale */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
   }
 
-  .blog-header p {
-    color: #d78941; /* Your brand orange */
-    font-style: italic;
+  /* --- 2. Centered Minimalist Content Grid --- */
+  .blog-index {
+    max-width: 720px; 
+    margin: 0 auto 100px auto;
+    padding: 0 24px;
   }
 
   .posts-grid {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    width: 100%;
   }
 
+  /* Flat layout sitting directly on the background with a brown separator */
   .post-card {
-    background: #ffffff;
-    padding: 32px;
-    border: 1px solid #6b442333;
-    box-shadow: 0 4px 20px rgba(107, 68, 35, 0.05);
+    position: relative; /* Key for stretching the anchor tag to fill the card */
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    padding: 32px 24px; 
+    margin: 0 -24px; /* Pulls the padding back out so text aligns perfectly with the header */
+    background: transparent;
+    border-bottom: 1px solid rgba(107, 68, 35, 0.2); /* Clean, earthy brown horizontal separator */
+    border-radius: 8px; /* Smooth corners for the hover highlight container */
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+  }
+
+  /* Substack-style flat highlight on hover */
+  .post-card:hover {
+    background-color: rgba(107, 68, 35, 0.04); /* Ultra-subtle touch of your brand brown */
+  }
+
+  /* Highlight the "Read Entry" arrow when the entire card is hovered */
+  .post-card:hover .read-more {
+    color: #6B4423;
+  }
+
+  .post-card:last-child {
+    border-bottom: none;
   }
 
   .post-card time {
     font-size: 0.85rem;
-    color: #777;
+    color: #D78941; /* Brand Orange */
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 8px;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-bottom: 12px;
   }
 
   .post-card h2 {
-    font-size: 1.8rem;
-    color: #1a1a1a;
+    font-size: 2.1rem;
+    color: #6B4423; /* Earthy Brown */
     margin: 0 0 16px 0;
+    line-height: 1.25;
+    font-weight: 700;
   }
 
   .post-card .summary {
-    color: #4a4a4a;
-    line-height: 1.6;
-    margin-bottom: 24px;
+    color: #333333; /* Soft off-black */
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
   }
 
   .read-more {
-    color: #d78941;
-    font-weight: bold;
+    color: #D78941;
+    font-weight: 700;
     text-decoration: none;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
     transition: color 0.2s ease;
   }
 
-  .read-more:hover {
-    color: #8e5a2b;
+  /* The magic: expands the clickable hit-area of the link to cover the entire relative card parent */
+  .read-more::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  /* --- 3. Responsive Adjustments --- */
+  @media (max-width: 768px) {
+    .blog-header-container {
+      margin-top: 40px;
+      margin-bottom: 20px;
+      padding: 0 16px;
+    }
+    
+    .post-card {
+      padding: 24px 16px;
+      margin: 0 -16px;
+    }
+    
+    .post-card h2 {
+      font-size: 1.7rem;
+    }
   }
 </style>
