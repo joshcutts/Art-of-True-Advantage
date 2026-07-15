@@ -1,7 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import { Image } from 'astro:assets'; // 1. Import Astro's optimized Image component
+import { Image } from 'astro:assets'; 
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -14,11 +14,9 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 
-// 2. Use Astro's global image importer to dynamically resolve the local src path
 const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/blog/**/*.{jpeg,jpg,png,gif,webp}');
 const imagePath = post.data.image;
 
-// 3. Verify the file actually exists in your src/assets folder
 if (imagePath && !images[imagePath]) {
   throw new Error(`[Blog Template] Image path "${imagePath}" not found in "/src/assets/blog/"`);
 }
@@ -37,7 +35,6 @@ if (imagePath && !images[imagePath]) {
       <h1>{post.data.title}</h1>
       <p class="post-summary">{post.data.summary}</p>
 
-      {/* 4. Render using the optimized <Image /> component */}
       {imagePath && (
         <div class="post-banner-wrapper">
           <Image src={images[imagePath]()} alt={`Cover for ${post.data.title}`} class="post-banner" />
@@ -47,23 +44,209 @@ if (imagePath && !images[imagePath]) {
 
     <hr class="divider" />
 
-    <div class="post-content">
+    {/* GATED CONTENT WRAPPER */}
+    <div id="gated-content" class="post-content hidden">
       <Content />
+    </div>
+
+    {/* EXCLUSIVE LOCK CARD */}
+    <div id="gate-keeper" class="lock-screen hidden">
+      <div class="lock-card" id="lock-card">
+        
+        {/* State Icon */}
+        <div class="lock-icon" id="gate-icon">🔒</div>
+        <h2 id="gate-title">Exclusive Content</h2>
+        <p id="gate-description">This article is reserved for members of the <strong>Art of True Advantage</strong> mailing list. Verify your email to read instantly.</p>
+        
+        {/* STEP 1: VERIFICATION FORM */}
+        <form id="verification-form">
+          <div class="form-group">
+            <input 
+              type="email" 
+              id="subscriber-email" 
+              required 
+              placeholder="Your subscribed email address" 
+              class="gate-input"
+            />
+          </div>
+          <button type="submit" id="verify-submit-btn" class="gate-button">
+            Unlock Post
+          </button>
+        </form>
+
+        {/* STEP 2: INLINE SIGNUP FORM */}
+        <form id="signup-form" class="hidden">
+          <div class="form-group-split">
+            <input type="text" id="signup-name" placeholder="Full Name" required class="gate-input" />
+            <input type="email" id="signup-email" placeholder="Email Address" required class="gate-input" />
+          </div>
+          <button type="submit" id="signup-submit-btn" class="gate-button">CONNECT & UNLOCK</button>
+        </form>
+
+        {/* FEEDBACK STATUS */}
+        <p id="feedback-msg" class="feedback-message hidden"></p>
+      </div>
     </div>
   </article>
 </Layout>
 
+<script>
+  function getCookie(name: string): string | null {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
+    return null;
+  }
+
+  function setCookie(name: string, value: string, days: number) {
+    const d = new Date();
+    d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+    const expires = "expires=" + d.toUTCString();
+    document.cookie = `${name}=${value}; ${expires}; path=/; SameSite=Lax; Secure`;
+  }
+
+  // DOM Elements
+  const gatedContent = document.getElementById('gated-content');
+  const gateKeeper = document.getElementById('gate-keeper');
+  const lockCard = document.getElementById('lock-card');
+  const gateIcon = document.getElementById('gate-icon');
+  const gateTitle = document.getElementById('gate-title');
+  const gateDesc = document.getElementById('gate-description');
+  const feedbackMsg = document.getElementById('feedback-msg');
+
+  // Form 1 (Verification)
+  const verifyForm = document.getElementById('verification-form') as HTMLFormElement;
+  const verifyEmailInput = document.getElementById('subscriber-email') as HTMLInputElement;
+  const verifySubmitBtn = document.getElementById('verify-submit-btn') as HTMLButtonElement;
+
+  // Form 2 (Subscription)
+  const signupForm = document.getElementById('signup-form') as HTMLFormElement;
+  const signupNameInput = document.getElementById('signup-name') as HTMLInputElement;
+  const signupEmailInput = document.getElementById('signup-email') as HTMLInputElement;
+  const signupSubmitBtn = document.getElementById('signup-submit-btn') as HTMLButtonElement;
+
+  // Initial Cookie Check
+  if (getCookie('mailerlite_verified') === 'true') {
+    gatedContent?.classList.remove('hidden');
+  } else {
+    gateKeeper?.classList.remove('hidden');
+  }
+
+  // Handle successful unlocks with a transition
+  function triggerSuccessUnlock() {
+    setCookie('mailerlite_verified', 'true', 30);
+    
+    // 1. Transition Lock Card to a beautiful Success state
+    if (gateIcon && gateTitle && gateDesc && lockCard) {
+      gateIcon.textContent = "🎉";
+      gateTitle.textContent = "Welcome Aboard!";
+      gateDesc.textContent = "Thank you for connecting. Unlocking your article now...";
+      lockCard.classList.add('success-state');
+    }
+    
+    // Hide active forms
+    verifyForm?.classList.add('hidden');
+    signupForm?.classList.add('hidden');
+    feedbackMsg?.classList.add('hidden');
+
+    // 2. Smoothly fade out lock screen and reveal blog post
+    setTimeout(() => {
+      gateKeeper?.classList.add('fade-out');
+      gatedContent?.classList.remove('hidden');
+      gatedContent?.classList.add('fade-in');
+      
+      setTimeout(() => {
+        gateKeeper?.classList.add('hidden');
+      }, 500);
+    }, 2000);
+  }
+
+  // Form 1 Submit: Verification
+  verifyForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    verifySubmitBtn.disabled = true;
+    verifySubmitBtn.textContent = 'Verifying...';
+    feedbackMsg?.classList.add('hidden');
+
+    const email = verifyEmailInput.value.trim();
+
+    try {
+      const response = await fetch('/api/verify-subscriber', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+      const result = await response.json();
+
+      if (result.active) {
+        triggerSuccessUnlock();
+      } else {
+        // Transition to Registration Form
+        if (gateTitle && gateDesc && signupForm && signupEmailInput) {
+          gateTitle.textContent = "Almost there!";
+          gateDesc.innerHTML = "We couldn't find that email on our list. Join the list below to instantly unlock this article.";
+          signupEmailInput.value = email;
+          
+          verifyForm.classList.add('hidden');
+          signupForm.classList.remove('hidden');
+        }
+      }
+    } catch (err) {
+      console.error(err);
+      if (feedbackMsg) {
+        feedbackMsg.textContent = 'Verification server error. Please try again.';
+        feedbackMsg.className = "feedback-message error";
+        feedbackMsg.classList.remove('hidden');
+      }
+      verifySubmitBtn.disabled = false;
+      verifySubmitBtn.textContent = 'Unlock Post';
+    }
+  });
+
+  // Form 2 Submit: Inline Subscription
+  signupForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    signupSubmitBtn.disabled = true;
+    signupSubmitBtn.textContent = 'Registering...';
+    feedbackMsg?.classList.add('hidden');
+
+    const email = signupEmailInput.value.trim();
+    const name = signupNameInput.value.trim();
+
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, name })
+      });
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        triggerSuccessUnlock();
+      } else {
+        throw new Error(result.error || 'Failed to subscribe');
+      }
+    } catch (err: any) {
+      console.error(err);
+      if (feedbackMsg) {
+        feedbackMsg.textContent = err.message || 'Something went wrong. Please try again.';
+        feedbackMsg.className = "feedback-message error";
+        feedbackMsg.classList.remove('hidden');
+      }
+      signupSubmitBtn.disabled = false;
+      signupSubmitBtn.textContent = 'CONNECT & UNLOCK';
+    }
+  });
+</script>
+
 <style>
+  /* Blog styles */
   .blog-post {
     max-width: 720px;
     margin: 80px auto;
     padding: 0 24px;
   }
-
-  .post-header {
-    margin-bottom: 32px;
-  }
-
+  .post-header { margin-bottom: 32px; }
   .post-header time {
     font-size: 0.9rem;
     color: #d78941;
@@ -71,46 +254,34 @@ if (imagePath && !images[imagePath]) {
     letter-spacing: 1px;
     font-weight: 600;
   }
-
   .post-header h1 {
     font-size: 2.8rem;
     color: #1a1a1a;
     margin: 12px 0 16px 0;
     line-height: 1.2;
   }
-
   .post-summary {
     font-size: 1.2rem;
     line-height: 1.5;
     color: #555555;
     font-style: italic;
   }
-
   .divider {
     border: 0;
     border-top: 1px solid #6b442322;
     margin: 40px 0;
   }
-
   .post-content :global(p) {
     font-size: 1.1rem;
     line-height: 1.8;
     color: #222222;
     margin-bottom: 1.75rem;
   }
-
-  .post-content :global(h3) {
-    font-size: 1.6rem;
-    color: #1a1a1a;
-    margin: 2.5rem 0 1rem 0;
-  }
-
   .post-banner-wrapper {
     width: 100%;
     margin-top: 24px;
     overflow: hidden;
   }
-
   .post-banner {
     width: 100%;
     height: auto;
@@ -119,4 +290,119 @@ if (imagePath && !images[imagePath]) {
     border: 1px solid #6b442322;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   }
+
+  /* UTILITIES & GATING STYLES */
+  .hidden { display: none !important; }
+
+  .lock-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+  }
+
+  .lock-screen.fade-out {
+    opacity: 0;
+  }
+
+  .post-content.fade-in {
+    animation: fadeIn 0.8s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .lock-card {
+    background: #fdfbf7;
+    border: 1px solid #6b442333;
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    max-width: 500px;
+    box-shadow: 0 15px 35px rgba(107, 68, 35, 0.05);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+
+  .lock-card.success-state {
+    background-color: #f2f9f1;
+    border-color: #a4cfa1;
+  }
+
+  .lock-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    transition: transform 0.3s ease;
+  }
+
+  .lock-card.success-state .lock-icon {
+    transform: scale(1.2);
+  }
+
+  .lock-card h2 {
+    font-size: 1.8rem;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+  }
+
+  .lock-card p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 24px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+  }
+
+  .form-group-split {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .gate-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+    background-color: #fff;
+    box-sizing: border-box;
+  }
+
+  .gate-input:focus { border-color: #d78941; }
+
+  .gate-button {
+    width: 100%;
+    background: #d78941;
+    color: #fff;
+    border: none;
+    padding: 14px 16px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, opacity 0.2s;
+  }
+
+  .gate-button:hover { background: #b66e2c; }
+  .gate-button:disabled { opacity: 0.7; cursor: not-allowed; }
+
+  .feedback-message {
+    font-size: 0.9rem;
+    margin-top: 14px;
+    font-weight: 500;
+  }
+
+  .feedback-message.error { color: #cc3333; }
 </style>
