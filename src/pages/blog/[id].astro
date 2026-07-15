@@ -3,6 +3,10 @@ import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import { Image } from 'astro:assets'; 
 
+// Import the header images
+import desktopHeader from '../../assets/blog/blog-header-desktop.png';
+import mobileHeader from '../../assets/blog/blog-header-mobile.png';
+
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
   return posts.map(post => ({
@@ -23,6 +27,13 @@ if (imagePath && !images[imagePath]) {
 ---
 
 <Layout title={`${post.data.title} | The Insights Journal`}>
+  <header class="navigation-banner">
+    <a href="/blog" aria-label="Back to Blog index" class="banner-link">
+      <Image src={desktopHeader} alt="The Art of True Advantage Blog" class="header-img desktop-header" />
+      <Image src={mobileHeader} alt="The Art of True Advantage Blog" class="header-img mobile-header" />
+    </a>
+  </header>
+
   <article class="blog-post">
     <header class="post-header">
       <time datetime={post.data.date.toISOString()}>
@@ -54,9 +65,8 @@ if (imagePath && !images[imagePath]) {
       <div class="lock-card" id="lock-card">
         
         {/* State Icon */}
-        <div class="lock-icon" id="gate-icon">🔒</div>
         <h2 id="gate-title">Exclusive Content</h2>
-        <p id="gate-description">This article is reserved for members of the <strong>Art of True Advantage</strong> mailing list. Verify your email to read instantly.</p>
+        <p id="gate-description">This article is reserved for Community members of the <strong>Art of True Advantage</strong> mailing list. Add your email to verify your status as a community member or to signup now!</p>
         
         {/* STEP 1: VERIFICATION FORM */}
         <form id="verification-form">
@@ -80,7 +90,7 @@ if (imagePath && !images[imagePath]) {
             <input type="text" id="signup-name" placeholder="Full Name" required class="gate-input" />
             <input type="email" id="signup-email" placeholder="Email Address" required class="gate-input" />
           </div>
-          <button type="submit" id="signup-submit-btn" class="gate-button">CONNECT & UNLOCK</button>
+          <button type="submit" id="signup-submit-btn" class="gate-button">SIGN UP NOW & UNLOCK</button>
         </form>
 
         {/* FEEDBACK STATUS */}
@@ -240,6 +250,41 @@ if (imagePath && !images[imagePath]) {
 </script>
 
 <style>
+  /* Header Navigation Banner Styles */
+  .navigation-banner {
+    width: 100%;
+    background-color: #faf8f5;
+    border-bottom: 1px solid #6b442322;
+  }
+
+  .banner-link {
+    display: block;
+    width: 100%;
+  }
+
+  .header-img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .desktop-header {
+    display: block;
+  }
+
+  .mobile-header {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .desktop-header {
+      display: none;
+    }
+    .mobile-header {
+      display: block;
+    }
+  }
+
   /* Blog styles */
   .blog-post {
     max-width: 720px;
