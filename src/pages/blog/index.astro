@@ -7,24 +7,26 @@ const sortedPosts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.
 
 // Import raw assets directly to completely bypass Astro's lossy image compilation
 import desktopHeaderImg from '../../assets/blog/blog-header-desktop.png';
-import mobileHeaderImg from '../../assets/blog/blog-header-mobile.png';
 ---
 
 <Layout title="The Art of True Advantage | Blog">
   
   <header class="blog-header-container">
-    <!-- Pure, valid HTML picture element pulling the direct source paths -->
-    <picture class="responsive-header">
-      <source media="(max-width: 767px)" srcset={mobileHeaderImg.src} />
-      <source media="(min-width: 768px)" srcset={desktopHeaderImg.src} />
-      <img 
-        src={desktopHeaderImg.src} 
-        alt="The Art of True Advantage Blog - Orientation Outcomes" 
-        class="header-graphic" 
-        loading="eager"
-        decoding="sync"
-      />
-    </picture>
+    <div class="banner-container">
+      <!-- Pure, valid HTML picture element pulling the direct source paths -->
+      <picture class="responsive-header">
+        <source media="(min-width: 768px)" srcset={desktopHeaderImg.src} />
+        <img 
+          src={desktopHeaderImg.src} 
+          alt="The Art of True Advantage Blog - Orientation Outcomes" 
+          class="header-graphic" 
+          loading="eager"
+          decoding="sync"
+        />
+      </picture>
+      <!-- Invisible link overlaying the right 60% of the graphic -->
+      <a href="/" aria-label="Back to TAOTA" class="banner-link"></a>
+    </div>
   </header>
 
   <!-- Content column sits clean and centered directly on your page background -->
@@ -51,18 +53,29 @@ import mobileHeaderImg from '../../assets/blog/blog-header-mobile.png';
 </Layout>
 
 <style>
-  /* --- 1. Expanded Header Container --- */
+  /* --- 1. Expanded Header Container & Grid Overlay --- */
   .blog-header-container {
     width: 100%;
     max-width: 1000px; 
     margin: 60px auto 40px auto;
     padding: 0 24px;
     box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+  }
+
+  .banner-container {
+    position: relative;
+    display: grid;
+    grid-template-areas: "stack";
+    width: 100%;
   }
 
   .responsive-header {
+    grid-area: stack;
     width: 100%;
     display: block;
+    z-index: 1;
   }
 
   .header-graphic {
@@ -74,6 +87,16 @@ import mobileHeaderImg from '../../assets/blog/blog-header-mobile.png';
     /* Force high-contrast rendering algorithms to lock thin text details on scale */
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
+  }
+
+  .banner-link {
+    grid-area: stack;
+    justify-self: end;     /* Anchors the link box to the right side of the grid */
+    width: 62%;            /* Keeps hit-area exactly to the right 60% */
+    height: 100%;
+    z-index: 10;           /* Renders on top of the image to catch clicks */
+    cursor: pointer;
+    display: block;
   }
 
   /* --- 2. Centered Minimalist Content Grid --- */

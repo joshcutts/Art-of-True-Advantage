@@ -5,6 +5,8 @@ backend:
 media_folder: "src/assets/blog" # Where user-uploaded files will be saved in your repo
 public_folder: "/src/assets/blog" # The file system path string inserted into frontmatter
 
+publish_mode: editorial_workflow
+
 collections:
   - name: "blog"
     label: "Blog Posts"

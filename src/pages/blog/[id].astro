@@ -5,7 +5,7 @@ import { Image } from 'astro:assets';
 
 // Import the header images
 import desktopHeader from '../../assets/blog/blog-header-desktop.png';
-import mobileHeader from '../../assets/blog/blog-header-mobile.png';
+// import mobileHeader from '../../assets/blog/blog-header-desktop.png';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -28,10 +28,10 @@ if (imagePath && !images[imagePath]) {
 
 <Layout title={`${post.data.title} | The Insights Journal`}>
   <header class="navigation-banner">
-    <a href="/blog" aria-label="Back to Blog index" class="banner-link">
-      <Image src={desktopHeader} alt="The Art of True Advantage Blog" class="header-img desktop-header" />
-      <Image src={mobileHeader} alt="The Art of True Advantage Blog" class="header-img mobile-header" />
-    </a>
+    <div class="banner-container">
+      <Image src={desktopHeader} alt="The Art of True Advantage Blog" class="header-img" />
+      <a href="/" aria-label="Back to Blog index" class="banner-link"></a>
+    </div>
   </header>
 
   <article class="blog-post">
@@ -250,43 +250,50 @@ if (imagePath && !images[imagePath]) {
 </script>
 
 <style>
-.navigation-banner {
+ .navigation-banner {
     width: 100%;
     background-color: transparent;
+    padding: 16px 0;
+    display: flex;
+    justify-content: center; /* Centers the banner container */
   }
 
-  .banner-link {
-    display: flex;
-    width: 100%;
-    justify-content: center; /* Centers the image horizontally */
-    align-items: center;     /* Aligns items vertically */
-    text-decoration: none;
+  /* 
+    This container matches the exact rendered size of the image, 
+    allowing us to position the link relative to it.
+  */
+  .banner-container {
+    position: relative;
+    width: 75%;              /* Matches the desktop image width */
+    max-width: 100%;
+    display: block;
   }
 
   .header-img {
-    width: 75%;              /* Maintains your desired width */
-    max-width: 100%;         /* Prevents overflow */
+    width: 100%;            /* Fills the container */
     height: auto;
     display: block;
   }
 
-  .desktop-header {
-    display: block;
+  /* 
+    This overlays an invisible clickable link over 
+    precisely the right 60% of the image.
+  */
+  .banner-link {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 62%;             /* Only cover the right 60% */
+    height: 100%;           /* Cover the full height */
+    z-index: 10;            /* Sit on top of the image */
+    cursor: pointer;
   }
 
-  .mobile-header {
-    display: none;
-  }
-
+  /* Responsive adjustment for mobile screen sizes */
   @media (max-width: 768px) {
-    .desktop-header {
-      display: none;
-    }
-    .mobile-header {
-      display: block;
-    }
-    .header-img {
-      width: 90%;            /* Slightly wider on mobile for readability */
+    .banner-container {
+      width: 90%;           /* Matches your preferred wider mobile width */
     }
   }
 
