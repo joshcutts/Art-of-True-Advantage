@@ -3,9 +3,7 @@ import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import { Image } from 'astro:assets'; 
 
-// Import the header images
 import desktopHeader from '../../assets/blog/blog-header-desktop.png';
-// import mobileHeader from '../../assets/blog/blog-header-desktop.png';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -30,7 +28,9 @@ if (imagePath && !images[imagePath]) {
   <header class="navigation-banner">
     <div class="banner-container">
       <Image src={desktopHeader} alt="The Art of True Advantage Blog" class="header-img" />
-      <a href="/" aria-label="Back to Blog index" class="banner-link"></a>
+      <!-- <a href="/" aria-label="Back to Blog index" class="banner-link"></a> -->
+      <a href="/blog" aria-label="Go to Blog" class="banner-link link-left"></a>
+      <a href="/" aria-label="Go to Home" class="banner-link link-right"></a>
     </div>
   </header>
 
@@ -288,6 +288,16 @@ if (imagePath && !images[imagePath]) {
     height: 100%;           /* Cover the full height */
     z-index: 10;            /* Sit on top of the image */
     cursor: pointer;
+  }
+
+  .link-left {
+    left: 0;
+    width: 35%;
+  }
+
+  .right-link {
+    left: 35%;
+    right: 60%;
   }
 
   /* Responsive adjustment for mobile screen sizes */

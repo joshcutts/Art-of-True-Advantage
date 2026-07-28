@@ -1,31 +1,31 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
 
 const allPosts = await getCollection('blog');
 const sortedPosts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 // Import raw assets directly to completely bypass Astro's lossy image compilation
-import desktopHeaderImg from '../../assets/blog/blog-header-desktop.png';
+import desktopHeader from '../../assets/blog/blog-header-desktop.png';
+
 ---
 
 <Layout title="The Art of True Advantage | Blog">
   
   <header class="blog-header-container">
     <div class="banner-container">
-      <!-- Pure, valid HTML picture element pulling the direct source paths -->
-      <picture class="responsive-header">
-        <source media="(min-width: 768px)" srcset={desktopHeaderImg.src} />
-        <img 
-          src={desktopHeaderImg.src} 
-          alt="The Art of True Advantage Blog - Orientation Outcomes" 
-          class="header-graphic" 
-          loading="eager"
-          decoding="sync"
-        />
-      </picture>
-      <!-- Invisible link overlaying the right 60% of the graphic -->
-      <a href="/" aria-label="Back to TAOTA" class="banner-link"></a>
+      <Image 
+        src={desktopHeader} 
+        alt="The Art of True Advantage Blog - Orientation Outcomes" 
+        class="header-graphic"
+        quality="max"
+        loading="eager"
+      />
+      
+      <!-- Split Overlay Links -->
+      <a href="/" aria-label="Back to Main Site" class="banner-link link-left"></a>
+      <a href="/blog" aria-label="Blog Index" class="banner-link link-right"></a>
     </div>
   </header>
 
@@ -71,6 +71,16 @@ import desktopHeaderImg from '../../assets/blog/blog-header-desktop.png';
     width: 100%;
   }
 
+  .link-left {
+    left: 0;
+    width: 40%;
+  }
+
+  .right-link {
+    left: 40%;
+    right: 60%;
+  }
+
   .responsive-header {
     grid-area: stack;
     width: 100%;
@@ -90,13 +100,11 @@ import desktopHeaderImg from '../../assets/blog/blog-header-desktop.png';
   }
 
   .banner-link {
-    grid-area: stack;
-    justify-self: end;     /* Anchors the link box to the right side of the grid */
-    width: 62%;            /* Keeps hit-area exactly to the right 60% */
+    position: absolute;
+    top: 0;
+    bottom: 0;
     height: 100%;
-    z-index: 10;           /* Renders on top of the image to catch clicks */
-    cursor: pointer;
-    display: block;
+    z-index: 2; /* Ensures clickable areas sit above the image */
   }
 
   /* --- 2. Centered Minimalist Content Grid --- */
