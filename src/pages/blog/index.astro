@@ -6,9 +6,7 @@ import { Image } from 'astro:assets';
 const allPosts = await getCollection('blog');
 const sortedPosts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-// Import raw assets directly to completely bypass Astro's lossy image compilation
 import desktopHeader from '../../assets/blog/blog-header-desktop.png';
-
 ---
 
 <Layout title="The Art of True Advantage | Blog">
@@ -23,13 +21,11 @@ import desktopHeader from '../../assets/blog/blog-header-desktop.png';
         loading="eager"
       />
       
-      <!-- Split Overlay Links -->
-      <a href="/" aria-label="Back to Main Site" class="banner-link link-left"></a>
-      <a href="/blog" aria-label="Blog Index" class="banner-link link-right"></a>
+      <a href="/blog" aria-label="Blog Index" class="banner-link link-left"></a>
+      <a href="/" aria-label="Back to Main Site" class="banner-link link-right"></a>
     </div>
   </header>
 
-  <!-- Content column sits clean and centered directly on your page background -->
   <main class="blog-index">
     <section class="posts-grid">
       {sortedPosts.map(post => (
@@ -53,7 +49,7 @@ import desktopHeader from '../../assets/blog/blog-header-desktop.png';
 </Layout>
 
 <style>
-  /* --- 1. Expanded Header Container & Grid Overlay --- */
+  /* --- 1. Header Container & Overlay Links --- */
   .blog-header-container {
     width: 100%;
     max-width: 1000px; 
@@ -62,30 +58,12 @@ import desktopHeader from '../../assets/blog/blog-header-desktop.png';
     box-sizing: border-box;
     display: flex;
     justify-content: center;
+    z-index: 10;
   }
 
   .banner-container {
     position: relative;
-    display: grid;
-    grid-template-areas: "stack";
     width: 100%;
-  }
-
-  .link-left {
-    left: 0;
-    width: 40%;
-  }
-
-  .right-link {
-    left: 40%;
-    right: 60%;
-  }
-
-  .responsive-header {
-    grid-area: stack;
-    width: 100%;
-    display: block;
-    z-index: 1;
   }
 
   .header-graphic {
@@ -93,18 +71,29 @@ import desktopHeader from '../../assets/blog/blog-header-desktop.png';
     height: auto;
     display: block;
     margin: 0 auto;
-    
-    /* Force high-contrast rendering algorithms to lock thin text details on scale */
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
   }
 
+  /* Shared overlay link base style */
   .banner-link {
     position: absolute;
     top: 0;
     bottom: 0;
     height: 100%;
-    z-index: 2; /* Ensures clickable areas sit above the image */
+    z-index: 2; /* Sits on top of the graphic */
+  }
+
+  /* Left 35% link area */
+  .link-left {
+    left: 0;
+    width: 35%;
+  }
+
+  /* Right 65% link area (matched to class="link-right") */
+  .link-right {
+    left: 35%;
+    width: 65%;
   }
 
   /* --- 2. Centered Minimalist Content Grid --- */
@@ -120,27 +109,25 @@ import desktopHeader from '../../assets/blog/blog-header-desktop.png';
     width: 100%;
   }
 
-  /* Flat layout sitting directly on the background with a brown separator */
   .post-card {
-    position: relative; /* Key for stretching the anchor tag to fill the card */
+    position: relative;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     padding: 32px 24px; 
-    margin: 0 -24px; /* Pulls the padding back out so text aligns perfectly with the header */
+    margin: 0 -24px;
     background: transparent;
-    border-bottom: 1px solid rgba(107, 68, 35, 0.2); /* Clean, earthy brown horizontal separator */
-    border-radius: 8px; /* Smooth corners for the hover highlight container */
+    border-bottom: 1px solid rgba(107, 68, 35, 0.2);
+    border-radius: 8px;
     transition: background-color 0.2s ease;
     cursor: pointer;
   }
 
-  /* Substack-style flat highlight on hover */
   .post-card:hover {
-    background-color: rgba(107, 68, 35, 0.04); /* Ultra-subtle touch of your brand brown */
+    background-color: rgba(107, 68, 35, 0.04);
   }
 
-  /* Highlight the "Read Entry" arrow when the entire card is hovered */
   .post-card:hover .read-more {
     color: #6B4423;
   }
@@ -151,7 +138,7 @@ import desktopHeader from '../../assets/blog/blog-header-desktop.png';
 
   .post-card time {
     font-size: 0.85rem;
-    color: #D78941; /* Brand Orange */
+    color: #D78941;
     text-transform: uppercase;
     letter-spacing: 1.5px;
     font-weight: 600;
@@ -160,14 +147,14 @@ import desktopHeader from '../../assets/blog/blog-header-desktop.png';
 
   .post-card h2 {
     font-size: 2.1rem;
-    color: #6B4423; /* Earthy Brown */
+    color: #6B4423;
     margin: 0 0 16px 0;
     line-height: 1.25;
     font-weight: 700;
   }
 
   .post-card .summary {
-    color: #333333; /* Soft off-black */
+    color: #333333;
     font-size: 1.1rem;
     line-height: 1.7;
     margin-bottom: 20px;
@@ -183,7 +170,6 @@ import desktopHeader from '../../assets/blog/blog-header-desktop.png';
     transition: color 0.2s ease;
   }
 
-  /* The magic: expands the clickable hit-area of the link to cover the entire relative card parent */
   .read-more::after {
     content: "";
     position: absolute;
