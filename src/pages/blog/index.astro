@@ -6,7 +6,7 @@ import { Image } from 'astro:assets';
 const allPosts = await getCollection('blog');
 const sortedPosts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-import desktopHeader from '../../assets/blog/blog-header-desktop.png';
+import desktopHeader from '../../assets/blog/blog-header-final2.png';
 ---
 
 <Layout title="The Art of True Advantage | Blog">
@@ -49,7 +49,7 @@ import desktopHeader from '../../assets/blog/blog-header-desktop.png';
 </Layout>
 
 <style>
-  /* --- 1. Header Container & Overlay Links --- */
+
   .blog-header-container {
     width: 100%;
     max-width: 1000px; 
@@ -71,8 +71,6 @@ import desktopHeader from '../../assets/blog/blog-header-desktop.png';
     height: auto;
     display: block;
     margin: 0 auto;
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
   }
 
   /* Shared overlay link base style */
