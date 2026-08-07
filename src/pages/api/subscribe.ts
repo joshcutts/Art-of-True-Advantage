@@ -36,6 +36,7 @@ export const POST: APIRoute = async ({ request }) => {
             name: name || "",
           },
           status: "active", // Sets them as active immediately
+          groups: ["189550789194155637"],
         }),
       },
     );
