@@ -20,8 +20,10 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Add/upsert the subscriber in MailerLite v3
-    const response = await fetch(
+    const groupId = "189550789194155637";
+
+    // Step 1: Create or update subscriber record
+    const subResponse = await fetch(
       "https://connect.mailerlite.com/api/subscribers",
       {
         method: "POST",
@@ -35,18 +37,39 @@ export const POST: APIRoute = async ({ request }) => {
           fields: {
             name: name || "",
           },
-          status: "active", // Sets them as active immediately
-          groups: ["189550789194155637"],
+          status: "active",
         }),
       },
     );
 
-    if (!response.ok) {
-      const errData = await response.json();
+    const subData = await subResponse.json();
+
+    if (!subResponse.ok) {
       return new Response(
-        JSON.stringify({ error: errData.message || "Subscription failed" }),
+        JSON.stringify({ error: subData.message || "Subscription failed" }),
         { status: 400 },
       );
+    }
+
+    const subscriberId = subData.data?.id;
+
+    // Step 2: Explicitly attach subscriber to group to guarantee trigger dispatch
+    if (subscriberId) {
+      const groupResponse = await fetch(
+        `https://connect.mailerlite.com/api/subscribers/${subscriberId}/groups/${groupId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${apiKey}`,
+          },
+        },
+      );
+
+      if (!groupResponse.ok) {
+        console.error("Failed to assign group:", await groupResponse.json());
+      }
     }
 
     return new Response(JSON.stringify({ success: true }), { status: 200 });
