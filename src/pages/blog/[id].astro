@@ -230,10 +230,11 @@ if (imagePath && !images[imagePath]) {
 
     // Construct standard FormData exactly like the launch team form
     const formData = new FormData();
-    formData.append('fields[name]', name);
-    formData.append('fields[email]', email);
     formData.append('ml-submit', '1');
     formData.append('anticsrf', 'true');
+    formData.append('redirect', 'https://www.artoftrueadvantage.com/success/');
+    formData.append('fields[name]', name);
+    formData.append('fields[email]', email);
 
     try {
       const response = await fetch('https://assets.mailerlite.com/jsonp/2405668/forms/189550880895272325/subscribe', {
